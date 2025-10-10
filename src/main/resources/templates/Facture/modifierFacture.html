@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier une facture</title>
+  <link type="text/css" rel="stylesheet" th:href="@{/style.css}" />
+  <script th:src="@{/menu.js}" defer></script>
+</head>
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+
+<h1>Modifier une facture</h1>
+
+<form class="form" method="post"
+      th:action="@{'/modifierFacture/' + ${factureForm.id}}"
+      th:object="${factureForm}" accept-charset="utf-8">
+
+  <fieldset class="cadre">
+    <legend>Informations facture</legend>
+
+    <!-- Champs cachés -->
+<!--    <input type="hidden" th:field="*{id}" />-->
+    <input type="hidden" th:field="*{commande.id}" />
+    <input type="hidden" th:field="*{clientId}" th:value="${factureForm.client != null ? factureForm.client.id : ''}" />
+
+    <!-- Ligne 1 -->
+    <div class="form-champs">
+      <input type="text" class="champs" th:field="*{nomDocument}" readonly placeholder="Nom du document" />
+      <input type="text" class="champs" th:field="*{libelle}" placeholder="Libellé" />
+    </div>
+
+    <!-- Ligne 2 -->
+    <div class="form-champs">
+      <input type="date" class="champs" th:field="*{date}" placeholder="Date" />
+      <input type="number" class="champs" th:field="*{poids}" step="0.01" placeholder="Poids" />
+    </div>
+
+    <!-- Ligne 3 -->
+    <div class="form-champs">
+      <input type="number" class="champs" th:field="*{tva}" step="0.01" placeholder="TVA" />
+      <input type="number" class="champs" th:field="*{prixKilo}" step="0.01" placeholder="Prix au kilo" />
+    </div>
+
+    <!-- Ligne 4 -->
+    <div class="form-champs">
+      <select class="champs" th:field="*{type}">
+        <option value="">Sélectionnez un type</option>
+        <option th:each="t : ${types}" th:value="${t}" th:text="${t}" th:selected="*{type} == ${t}"></option>
+      </select>
+
+      <select class="champs" th:field="*{statutFacture}">
+        <option value="">Sélectionnez un statut</option>
+        <option th:each="s : ${statuts}" th:value="${s}" th:text="${s}" th:selected="*{statutFacture} == ${s}"></option>
+      </select>
+    </div>
+
+    <!-- Ligne 5 -->
+    <div class="form-champs">
+      <input type="text"
+             class="champs"
+             th:value="${factureForm.commande != null ? factureForm.commande.nomDocument : 'Aucune commande associée'}"
+             readonly
+             placeholder="Commande associée" />
+      <textarea class="champs" th:field="*{commentaire}" rows="4" placeholder="Commentaire"></textarea>
+    </div>
+
+    <!-- Messages -->
+    <div th:if="${message != null}"
+         th:style="'color:' + (${erreur} != null ? 'red' : 'green') + '; font-weight:bold;'">
+      <span th:text="${message}"></span>
+    </div>
+
+    <!-- Boutons -->
+    <div class="form-boutons">
+      <button type="submit" class="bouton-action" th:text="Valider"></button>
+      <button type="reset" class="bouton-action" th:text="Annuler"></button>
+    </div>
+
+  </fieldset>
+
+  <div class="boutons-retour">
+    <a class="retour" th:href="@{/listeFacture}">Retour à la liste</a>
+  </div>
+</form>
+
+<div th:replace="~{inc/footer :: footer}"></div>
+</body>
+</html>

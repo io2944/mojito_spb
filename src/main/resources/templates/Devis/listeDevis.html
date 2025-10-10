@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Liste des devis | Mojito</title>
+	<link type="text/css" rel="stylesheet" th:href="@{/style.css}" />
+</head>
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+
+<div class="retour">
+	<a th:href="@{/createDevis}">Créer un nouveau devis</a>
+</div>
+
+<div class="liste">
+	<section class="cadre">
+		<h2>Liste des devis</h2>
+
+		<!-- Cas : aucun devis -->
+		<p th:if="${#lists.isEmpty(listDevis)}">Aucun devis enregistré.</p>
+
+		<!-- Cartes pour chaque devis -->
+		<div th:each="devis : ${listDevis}" class="carte-client">
+			<div class="titre-client">
+				<p><span th:text="${devis.nomDocument}"></span></p>
+				<p><span th:text="${devis.client != null ? devis.client.nom : 'Client manquant'}"></span>
+					<span th:text="${devis.client != null ? devis.client.prenom : ''}"></span>
+				</p>
+				<p><span th:text="${devis.statut}"></span></p>
+			</div>
+
+			<div class="carte-actions actions">
+				<a class="bouton-carte" th:href="@{/viewDevis/{id}(id=${devis.id})}">Consulter</a>
+				<a class="bouton-carte" th:href="@{/updateDevis/{id}(id=${devis.id})}">Modifier</a>
+				<a class="bouton-carte" th:href="@{/deleteDevis(id=${devis.id})}"
+				   onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+			</div>
+		</div>
+	</section>
+</div>
+
+<div th:replace="~{inc/footer :: footer}"></div>
+<script th:src="@{/menu.js}" defer></script>
+</body>
+</html>

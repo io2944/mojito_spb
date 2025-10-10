@@ -1,0 +1,410 @@
+*{
+	font-family: Helvetica;
+}
+hr{
+	color: #32cd32;
+	margin: 24px 4%;
+}
+body, p, h3{
+	margin: 0;
+}
+body{
+	padding-bottom: 80px; /* Espace pour le footer fixé (64px + marge) */
+}
+header{
+	width: 100%;
+	height: 120px;
+	display: flex;
+	align-items: center;
+	background: linear-gradient(90deg,black, white);
+}
+a{
+	text-decoration: none;
+	color: white;
+}
+h1{
+	color: white;
+}
+h2{
+	margin-top: 32px;
+}
+nav{
+	width: 90%;
+	display: flex;
+}
+ul{
+	width: 95%;
+	display: flex;
+	gap: 64px;
+}
+li:hover, .bouton-action:hover{
+	background-color: #b6d7ed;
+	color: #281880;
+	border-color: #281880
+	}
+li:hover a {
+	color: #281880;
+}
+li {
+	width: 176px;
+	background-color: #281880 ;
+	text-align: center;
+	padding: 4px 0;
+	border: 2px solid white;
+	border-radius: 20px;
+}
+textarea, select, button{
+	border-radius: 20px;
+}
+textarea{
+	border: none;
+	resize: none;
+	padding: 16px; 
+}
+select{
+	width: 228px;
+	height: 32px;
+	padding-left: 2%;
+	background-color: white;
+	border: 2px solid #281880;
+}
+table{
+	width: 90%;
+	border-radius: 20px 20px 0 0;
+}
+table, th{
+	border-collapse: collapse;
+	border: 2px solid #32cd32;
+}
+td{
+	border-collapse: collapse;
+	border-right: 2px solid #32cd32;
+	border-bottom: 2px solid #32cd32;
+}
+h2{
+	margin-left: 4%;
+}
+.nav-menu{
+	list-style-type : none;
+	color: white; 
+}
+.nav-bouton{
+	width: 10%;
+	padding-top: 16px;
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+}
+.boutons-retour{
+	display: flex;
+}
+.retour{
+	width: 25%;
+	display: flex;
+	justify-content: center;
+	background-color: #281880 ;
+	text-align: center;
+	margin: 24px 0 0 64px;
+	padding: 8px;
+	border: 2px solid white;
+	border-radius: 20px;
+}
+.cadre{
+	width: 90%;
+	background-color: #32cd3230;
+	border: 2px solid #32cd32;
+	border-radius: 40px;
+	margin: 32px 0;
+	padding: 24px;
+}
+.liste, table{
+	margin: 48px 0 0 64px;
+}
+.form{
+	margin: 16px 0 16px 64px;
+}
+.form-champs{
+	display:flex;
+	width: 100%;
+	gap: 24px;
+	align-items: center;
+	margin-bottom: 15px;
+}
+.form-boutons{
+	width: 90%;
+	height: 154px;
+	display: flex;
+	justify-content: flex-end;
+	gap: 64px;
+}
+.bouton-action{
+	width: 228px;
+	height: 36px;
+	gap: 16px;
+	background-color: #281880;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+	margin-top: 64px;
+	padding: 0;
+	border-radius: 20px;
+	border: 2px solid white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.champs{
+	width: 512px;
+	height: 54px;
+	padding-left: 15px;
+	border-radius: 20px;
+	border: none;
+}
+.title{
+	margin-bottom: 16px;
+}
+.type{
+	width: 100%;
+	display: flex;
+	align-items: center;
+	gap: 24px;
+}
+.check{
+	display: flex;
+	justify-content: center;
+	gap: 40px;
+}
+.statut{
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	width: 45%;
+}
+.colonne, .colonne-client, .client-associe{
+	display:flex;
+	flex-direction: column;
+}
+.titre-client{
+	width: 50%;
+	display: flex;
+	align-items: center;
+	gap: 88px;
+	margin: 0 0 0 3%;
+}
+.titre-client-list{	
+	width: 50%;
+	display: flex;
+	align-items: center;
+	gap: 56px;
+	margin-left: 3%;
+}
+.gras{
+	font-weight: bold;
+	font-size: 24px;	
+}
+.categorie{
+	font-size: 20px;
+}
+.info-client{
+	display: flex;
+	width: 90%;
+	margin: 60px 0 60px 4%;
+	gap: 64px;	
+}	
+.coordonnees-client{
+	width: 50%;
+	display: flex;
+	gap: 80px;
+}
+.adresse, .telephone-mail{
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+}
+.infos-complementaires{
+	width: 50%;
+	display: flex;
+	align-items: center;
+	gap: 40px;
+	padding-left: 2%;
+}
+.donnees-client{	
+	display:flex;
+	gap: 48px;
+	margin: 0 40px;
+}
+.colonne-client{
+	width:50%;
+	gap: 24px;
+}
+.cadre-article,.cadre-colonne{
+	width: 50%;
+	border: 2px solid #281880;
+	border-radius: 20px;
+}
+.cadre-colonne{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+.ligne{
+	display: flex;
+}
+.vignette{
+	width:92%;
+	display: flex;
+	height: 77px;
+	border: 2px solid #281880;
+	border-radius: 10px;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	margin: 0 0 16px 4%;
+}
+.vignette-active:hover{
+	border: 2px solid #32cd32;
+}
+.reference{
+	margin-right: 8px;
+}
+.carte-client{
+	display: flex;
+	height: 114px;
+	justify-content: space-evenly;
+	align-items: center;
+	background-color: white;
+	border-radius: 20px;
+	margin-bottom: 24px;
+	padding: 0 16px;
+}
+.actions{
+	border-right: none;
+	border-bottom: none;
+}
+.carte-actions{
+	display: flex;
+	width: 65%;
+	align-items: center;
+	gap: 16px;
+	margin-right: 16px;
+}
+.th-col{
+	width: 15%;
+}
+.bouton-carte{
+	width: 40%;
+	height: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #281880;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+	margin: 8px;
+	padding: 8px;
+	border-radius: 20px;
+}
+.associe{
+	display: flex;
+	margin: 24px 4%;
+}
+.adresse-document{
+	margin:0 0 16px 4%;
+}
+.destinataire{
+	gap: 204px;
+	margin: 0 4%;
+}
+.cadre-vert{
+	width: 45%;
+	border: 2px solid #32cd32;
+	border-radius: 20px;
+}
+.titre-document{
+	margin: 0;
+}
+.additionnelle, .pied{
+	margin-left: 4%;
+}
+.additionnelle{
+	margin-top: 24px;
+}
+.devis{
+	display:inline-block;
+	width: 50%;
+	margin-left: 219%;
+}
+.total{
+	border: none;
+}
+.periode{
+	padding: 16px 2%;
+}
+footer{
+	width: 100%;
+	height: 64px;
+	background: linear-gradient(90deg,black, white);
+	display: flex;
+	align-items: center;
+	position: fixed;
+	bottom: 0;
+	color: white;
+	padding-left: 32px;
+}
+/* Conteneur parent */
+.nav-item {
+	position: relative; /* essentiel pour que le menu se positionne par rapport au parent */
+}
+/* Dropdown menu - par défaut caché */
+.dropdown-menu {
+	display: none;
+	position: absolute;
+	top: 110%; /* en dessous du bouton parent */
+	left: 0;
+	background-color: #281880;
+	border-radius: 20px;
+	padding: 8px 0;
+	min-width: 200px; /* largeur minimale adaptée au texte */
+	z-index: 1000;
+}
+
+/* Affichage quand ouvert */
+.dropdown-menu__open {
+	display: block;
+}
+
+/* Conteneur des boutons du dropdown */
+.dropdown-menu-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 0 8px; /* espace intérieur pour aligner à gauche */
+}
+
+/* Chaque bouton dans le dropdown */
+.dropdown-menu-buttons .nav-bouton {
+	display: block; /* remplit horizontalement */
+	width: 100%;
+	padding: 8px 16px; /* espace autour du texte */
+	color: white;
+	text-decoration: none;
+	box-sizing: border-box;
+	border-radius: 10px;
+	text-align: left;   /* texte aligné à gauche */
+}
+
+/* Hover sur le bouton */
+.dropdown-menu-buttons .nav-bouton:hover {
+	background-color: #b6d7ed;
+	color: #281880;
+}
+
+/* Parent relatif pour que le dropdown se positionne correctement */
+.nav-bouton-parent {
+	position: relative;
+}
+
+.form-boutons-role{
+	height: auto;
+}

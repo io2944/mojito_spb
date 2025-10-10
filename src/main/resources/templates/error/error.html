@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/error.css}">
+    <script th:src="@{/menu.js}" defer></script>
+    <title th:text="'Erreur ' + (${errorCode} ?: '???')"></title>
+</head>
+
+<body>
+<div th:replace="inc/header :: header"></div>
+
+    <div class="error-container">
+
+        <p class="error-message error-code" th:text="'Erreur ' + (${errorCode} ?: '???')">Erreur prout</p>
+
+        <img th:src="@{/images/error-image.jpg}" alt="Image d'erreur" style="width:300px; height:auto; margin-bottom:20px;">
+        <div class="error-message" th:text="${errorMessage} ?: 'Une erreur inattendue s\'est produite'">
+            Page non trouvée
+        </div>
+
+        <p class="error-message">Allo Houston ?! On a un problème !</p>
+        <div class="form-boutons form-boutons-role error-buttons">
+            <a th:href="@{/listeDevis}" class="bouton-action">Retour à la liste des devis</a>
+        </div>
+    </div>
+
+<div th:replace="inc/footer :: footer"></div>
+
+</body>

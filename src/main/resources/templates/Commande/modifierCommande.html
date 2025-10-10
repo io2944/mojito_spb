@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier une commande</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <script th:src="@{/menu.js}" defer></script>
+</head>
+
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+
+<h2>Modifier une commande</h2>
+
+<form class="form" method="post"
+      th:action="@{'/modifierCommande/' + ${commandeForm.id}}"
+      th:object="${commandeForm}" accept-charset="utf-8">
+
+  <fieldset class="cadre">
+      <legend>Informations de la commande</legend>
+      <input type="hidden" th:field="*{devisId}" th:value="${commandeForm.devis != null ? commandeForm.devis.id : ''}" />
+      <input type="hidden" th:field="*{clientId}" th:value="${commandeForm.client != null ? commandeForm.client.id : ''}" />
+
+      <div class="form-champs">
+          <!-- nomDocument readonly -->
+          <input type="text" class="champs" th:field="*{nomDocument}" readonly/>
+          <br/>
+          <input type="text" class="champs" th:field="*{libelle}"/>
+      </div>
+
+      <div class="form-champs">
+          <input type="date" class="champs" th:field="*{date}"/>
+          <br/>
+          <input type="number" class="champs" th:field="*{poids}" step="0.01"/>
+      </div>
+
+      <div class="form-champs">
+          <input type="number" class="champs" th:field="*{tva}" step="0.01"/>
+          <br/>
+          <input type="number" class="champs" th:field="*{prixKilo}" step="0.01"/>
+      </div>
+
+      <div class="form-champs">
+          <select id="type" class="champs" th:field="*{type}" required>
+              <!--        <option value="">&#45;&#45; Choisissez un type &#45;&#45;</option>-->
+              <option th:each="t : ${types}" th:value="${t}" th:text="${t}"
+                      th:selected="${commandeForm.type} == ${t}"></option>
+          </select>
+          <br/>
+          <select id="statutCommande" class="champs" th:field="*{statutCommande}" required>
+              <!--        <option value="">&#45;&#45; Sélectionnez un statut &#45;&#45;</option>-->
+              <option th:each="s : ${statuts}" th:value="${s}" th:text="${s}"
+                      th:selected="${commandeForm.statutCommande} == ${s}"></option>
+          </select>
+      </div>
+
+      <div class="form-champs">
+          <label class="label-inline">
+              <input type="checkbox" th:field="*{orbite}"/> Orbite
+          </label>
+      </div>
+
+      <div class="colonne">
+          <label for="commentaire" class="title">Commentaire</label>
+          <!-- ATTENTION : th:field (pas th:text) pour binder correctement -->
+          <textarea id="commentaire" class="champs" th:field="*{commentaire}" rows="4"></textarea>
+      </div>
+
+      <div th:if="${message != null}"
+           th:style="'color:' + (${erreur} != null ? 'red' : 'green') + '; font-weight:bold;'">
+          <span th:text="${message}"></span>
+      </div>
+
+      <!-- Boutons -->
+      <div class="form-boutons">
+          <button type="submit" class="bouton-action" th:text="Valider"></button>
+          <button type="reset" class="bouton-action" th:text="Annuler"></button>
+      </div>
+
+  </fieldset>
+</form>
+
+<div th:replace="~{inc/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>Créez votre client</title>
+		<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+
+	</head>
+	<body>
+		<!-- Header inclus en fragment Thymeleaf -->
+		<div th:replace="~{inc/header :: header}"></div>
+		<h2 th:text="${isEdit} ? 'Édition du client' : 'Création du client'"></h2>
+		<div>
+			<form class="form" th:action="@{${isEdit} ? '/updateClient/' + ${clientForm.id} : '/createClient'}"
+				  method="post"
+				  th:object="${clientForm}">
+				<fieldset class="cadre">
+					<div class="typeclient">
+						<label for="type">Votre client est:<span class="required">*</span></label>
+						<select id="type" name="typeClient" required>
+							<option th:value="${type}"
+									th:each=" type : ${typeClient}"
+									th:text="${type}">
+							</option>
+						</select>
+					</div>
+					<p>*champs obligatoires </p>
+					<br>
+					<div class="form-champs">
+						<input type="text" id="nom" class="champs" name="nom" th:value="*{nom}"
+							   size="50" maxlength="100" placeholder="Nom*" required>
+						<br>
+						<input type="text" id="prenom" class="champs" name="prenom" th:value="*{prenom}"
+							    size="50" maxlength="100" placeholder="Prénom">
+					</div>
+					<div class="form-champs">
+						<input type="text" id="entreprise" class="champs" name="entreprise" th:value="*{entreprise}"
+							    size="50" maxlength="200" placeholder="Entreprise">
+						<br>
+						<input type="email" id="email" class="champs" name="email"
+							   th:value="*{email}" size="50" maxlength="255" placeholder="Adresse mail*">
+					</div>
+					<div class="form-champs">
+						<input type="text" id="telephoneFixe" class="champs" name="telephoneFixe"
+							   th:value="*{telephoneFixe}" size="20" maxlength="15"
+							   placeholder="Téléphone fixe">
+						<br>
+						<input type="text" id="telephoneMobile" class="champs" name="telephoneMobile"
+							   th:value="*{telephoneMobile}" size="20" maxlength="15"
+							   placeholder="Téléphone mobile*" required>
+					</div>
+					<div class="form-champs">
+						<input type="text" id="adresse" class="champs" name="adresse"
+							   th:value="*{adresse}" size="50" maxlength="200"
+							   placeholder="Adresse postale">
+						<br>
+						<div class="colonne">
+							<label for="commentaire" class="title">Commentaire</label>
+							<textarea id="commentaire" name="commentaire" rows="4" cols="60" maxlength="255"
+									  th:value="*{commentaire}"></textarea>
+						</div>
+					</div>
+					<div class="type">
+						<div class="check">
+							<label for="isActive">Client actif</label>
+							<input type="checkbox" id="isActive" name="isActive" value="true"
+								   th:checked="*{active != null}">
+						</div>
+						<div class="statut">
+							<label for="statutClient">Statut de client<span class="required">*</span></label>
+							<select id="statutClient" th:field="*{statutClient}" required>
+								<option th:each="statut : ${statutClient}"
+										th:value="${statut}"
+										th:text="${statut}"></option>
+							</select>
+							<br>
+						</div>
+					</div>
+					<div class="form-boutons">
+						<button type="submit" class="bouton-action"
+								th:text="${isEdit} ? 'Mettre à jour' : 'Enregistrer'"
+								th:value="${buttonValue}"></button>
+						<button type="reset" class="bouton-action">Effacer</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+		<!-- Footer inclus en fragment Thymeleaf -->
+		<div th:replace="~{inc/footer :: footer}"></div>
+		<script th:src="@{/menu.js}" defer></script>
+	</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+    <link type="text/css" rel="stylesheet" th:href="@{/stylelogin.css}">
+    <title>Mojito - login</title>
+</head>
+
+<body>
+
+
+    <section class="login-image">
+        <img th:src="@{/images/Mojito.svg}" alt="Logo du CRM Mojito" width="200" height="200">
+
+    </section>
+    <section class="loginform-container">
+            <h2>Identifiez-vous</h2>
+            <div th:if="${param.error}" class="alert alert-error"></div>
+
+            <form th:action="@{/login}" method="POST">
+                <fieldset class="loginform-cadre">
+                    <div class="form-champs ">
+                        <label class="loginform-champs">
+                            <span>Identifiant</span>
+                            <input class="champs" type="text" name="username">
+                        </label>
+                    </div>
+
+                    <div class="form-champs loginform-champs">
+                        <label class="loginform-champs">
+                            <span>Mot de passe</span>
+                            <input class="champs" type="password" name="password" autocomplete="off">
+                        </label>
+                    </div>
+                    <button class="loginform-button" type="submit">Se connecter</button>
+                </fieldset>
+            </form>
+    </section>
+</body>
+
+</html>

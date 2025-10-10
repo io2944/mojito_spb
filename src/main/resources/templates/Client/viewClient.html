@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Visualisation du client | Mojito</title>
+		<meta charset="utf-8">
+		<link type="text/css" rel="stylesheet" th:href="@{/style.css}" />
+	</head>
+	<body>
+	<!-- Inclusion du header en fragment -->  
+	<div th:replace="~{inc/header :: header}"></div>
+	<div class="boutons-retour">
+		<a class="retour" th:href="@{/createClient}">Créer un client</a>
+		<a class="retour" th:href="@{/listClient}">Liste de vos clients</a>
+		<a class="retour" th:href="@{/updateClient/{id}(id=${client.id})}">Modifier le profil</a>
+	</div>	
+		<!-- Contenu principal de la visualisation des informations du client -->
+		<div class="titre-client">
+			<p class="gras" th:text="${client.nom} + ' ' + ${client.prenom}"></p>
+			<p th:if="${client.typeClient == 'PROFESSIONNEL'}">Entreprise:
+				<span class="categorie" th:value="${client.entreprise}"></span></p>
+			<p class="categorie"th:unless="${client.typeClient == 'PROFESSIONNEL'}">(Particulier)</p>
+		</div>
+	
+		<!-- Affichage du message éventuel -->
+		<p class="info" th:if="${message}" th:text="${message}"></p>
+		<div class="info-client">
+			<div class="coordonnees-client">
+				<div class="adresse">
+					<h3>Adresse: </h3><p th:text="${client.adresse}"></p>
+				</div>
+				<div class="telephone-mail">
+					<h3>Coordonnées :</h3>
+					<div class="ligne">
+						<p>Téléphone fixe: <span th:text="${client.telephoneFixe}"></span></p>
+					</div>
+					<div class="ligne">
+						<p>Téléphone mobile: <span th:text="${client.telephoneMobile}"></span></p>
+					</div>
+					<div class="ligne">
+						<p>Email: <span th:text="${client.email}"></span></p>
+					</div>
+				</div>
+				
+			</div>
+			<div class="infos-complementaires">
+				<p>Client actif: <span th:text="${client.active}"></span></p>
+				<p>Commentaire: <span th:text="${client.commentaire}"></span></p>
+			</div>
+		</div>
+		<div class="donnees-client">
+			<section class="colonne colonne-client">
+				<article class="cadre-colonne">
+					<h2>Devis</h2>
+						<div class="vignette vignette-active" th:each="devis : ${devises}">
+							<p class="reference" th:text="${devis.nomDocument}"></p>
+							<p>Statut: <span th:text="${devis.statut}"></span></p>
+<!--						<div class="vignette vignette-active">-->
+<!--							<p class="reference">DEV-2025-09-17_001</p>-->
+<!--							<p>Statut: archivé</p>-->
+						</div>		
+				</article>
+				<article class="cadre-colonne">
+					<h2>Commandes</h2>
+						<div class="vignette vignette-active" th:each="commande : ${commandes}">
+								<p class="reference" th:text="${commande.nomDocument}"></p>
+								<p>Statut:<span th:text="${commande.statutCommande}"></span></p>
+						</div>
+				</article>
+			</section>
+			<section class="cadre-article">
+				<h2>Factures</h2>
+					<div class="vignette vignette-active" th:each="facture : ${factures}">
+							<p class="reference" th:text="${facture.nomDocument}"></p>
+							<p >Statut: <span th:text="${facture.statutFacture}"></span></p>
+					</div>
+			</section>
+		</div>			
+	<div th:replace="~{inc/footer :: footer}"></div>
+	<script th:src="@{/menu.js}" defer></script>
+	</body>
+
+</html>

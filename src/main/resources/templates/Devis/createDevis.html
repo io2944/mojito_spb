@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Créer un devis | Mojito</title>
+	<link rel="stylesheet" type="text/css" th:href="@{/style.css}" />
+</head>
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+
+<h2>Création d'un devis</h2>
+
+<form class="form" method="post" th:action="@{/createDevis}" th:object="${devisForm}" accept-charset="utf-8">
+	<fieldset class="cadre">
+
+		<!-- Client -->
+		<div class="form-champs">
+			<label for="clientId">Client *</label>
+			<select th:field="*{clientId}" id="clientId" class="champs" required>
+				<option value="">-- Choisissez un client --</option>
+				<option th:each="client : ${clients}"
+						th:value="${client.id}"
+						th:text="${client.nom} + ' ' + ${client.prenom}">
+				</option>
+			</select>
+			<div th:if="${#fields.hasErrors('clientId')}" class="error"
+				 th:errors="*{clientId}">Erreur</div>
+		</div>
+
+		<!-- Libellé et Date -->
+		<div class="form-champs" style="display:flex; gap:16px;">
+			<input type="text" th:field="*{libelle}" class="champs" placeholder="Libellé du devis*" size="50" maxlength="100" required/>
+			<input type="date" th:field="*{date}" class="champs" placeholder="Date"/>
+		</div>
+
+		<!-- Poids et TVA -->
+		<div class="form-champs" style="display:flex; gap:16px;">
+			<input type="number" th:field="*{poids}" class="champs" step="0.01" placeholder="Poids (kg)*" required/>
+			<input type="number" th:field="*{tva}" class="champs" step="0.01" placeholder="TVA (%)"/>
+		</div>
+
+		<!-- Prix au kilo et Type -->
+		<div class="form-champs" style="display:flex; gap:16px;">
+			<input type="number" th:field="*{prixKilo}" class="champs" step="0.01" placeholder="Prix au kilo"/>
+			<select th:field="*{type}" class="champs" >
+				<option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+			</select>
+		</div>
+
+		<!-- Statut et Commentaire -->
+		<div class="form-champs" style="display:flex; gap:16px;">
+			<select th:field="*{statut}" class="champs" required>
+				<option th:each="s : ${statuts}" th:value="${s}" th:text="${s}"></option>
+			</select>
+			<textarea th:field="*{commentaire}" class="champs" rows="4" cols="40" maxlength="1000" placeholder="Votre projet en quelques mots"></textarea>
+		</div>
+
+		<!-- Boutons -->
+		<div class="form-boutons">
+			<button type="submit" class="bouton-action" th:text="Valider"></button>
+			<button type="reset" class="bouton-action" th:text="Effacer"></button>
+		</div>
+
+	</fieldset>
+</form>
+
+<div th:replace="~{inc/footer :: footer}"></div>
+<script th:src="@{/menu.js}" defer></script>
+</body>
+</html>

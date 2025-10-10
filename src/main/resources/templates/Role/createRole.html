@@ -1,0 +1,32 @@
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+<script th:src="@{/menu.js}" defer></script>
+<title th:text="${isEdit} ? 'Édition d\'un rôle' : 'Création d\'un rôle'"></title>
+
+
+<!-- Header inclus -->
+<div th:replace="inc/header :: header"></div>
+
+<h2 th:text="${isEdit} ? 'Édition d\'un rôle' : 'Création d\'un rôle'"></h2>
+
+<section role="alert">
+	<div class="error" th:if="${error}" th:text="${error}"></div>
+</section>
+
+<form class="form" th:action="@{${isEdit} ? '/roleedit' : '/rolecreate'}" method="post">
+	<fieldset class="cadre">
+		<!-- Champ caché seulement en mode édition -->
+		<input type="hidden" name="id" th:if="${isEdit}" th:value="${role.id}" />
+		<div class="form-champs">
+			<label for="name" required>Nom du rôle :</label>
+			<input class="champs" type="text" id="name" name="name" required th:value="${role.name}" />
+		</div>
+
+		<button class="bouton-action" type="submit" th:text="${isEdit} ? 'Modifier le rôle' : 'Créer le rôle'">
+			<!-- texte remplacé dynamiquement -->
+		</button>
+	</fieldset>
+</form>
+
+<!-- Footer inclus -->
+<div th:replace="inc/footer :: footer"></div>

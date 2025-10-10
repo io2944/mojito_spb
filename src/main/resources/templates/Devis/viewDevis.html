@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="'Devis n° ' + ${devis.nomDocument} + ' | Mojito'">Détail devis</title>
+	<link rel="stylesheet" th:href="@{/styleDocuments.css}" />
+</head>
+
+<body>
+
+<!-- Header inclus via fragment -->
+<div th:replace="~{inc/header :: header}"></div>
+
+<div class="page-document">
+
+	<div class="en-tete-document">
+		<div class="entreprise">
+			<h1>Cryorbiter</h1>
+			<p>1, rue de la Lune</p>
+			<p>99999 Moon City</p>
+			<p>Tél : 02 02 02 02 02</p>
+			<p>Email : contact@cryorbiter.com</p>
+		</div>
+
+		<div class="bloc-client">
+			<h2>Client</h2>
+			<p th:text="${devis.client.prenom} + ' ' + ${devis.client.nom}"></p>
+			<p th:text="${devis.client.email}"></p>
+			<p th:text="${devis.client.telephoneFixe}"></p>
+		</div>
+	</div>
+
+	<div class="infos-document">
+		<h2>Devis n° <span th:text="${devis.nomDocument}"></span></h2>
+		<p>Date : <span th:text="${#dates.format(devis.date, 'dd/MM/yyyy')}"></span></p>
+		<p th:text="'Objet : ' + ${devis.libelle}"></p>
+	</div>
+
+	<table class="document">
+		<thead>
+		<tr>
+			<th>Libellé</th>
+			<th>Date</th>
+			<th>Poids (kg)</th>
+			<th>Prix unitaire HT</th>
+			<th>TVA (%)</th>
+			<th>Total HT</th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr>
+			<td th:text="${devis.libelle}"></td>
+			<td th:text="${#dates.format(devis.date, 'dd/MM/yyyy')}"></td>
+			<td th:text="${#numbers.formatDecimal(devis.poids, 1, 'POINT', 2, 'COMMA') + ' kg'}"></td>
+			<td th:text="${#numbers.formatDecimal(devis.prixKilo, 1, 'POINT', 2, 'COMMA') + ' €/kg'}"></td>
+			<td th:text="${#numbers.formatDecimal(devis.tva, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+			<td th:text="${#numbers.formatDecimal(devis.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+		</tr>
+		</tbody>
+		<tfoot>
+		<tr class="total-ligne">
+			<th colspan="5" style="text-align:right;">Total HT</th>
+			<td th:text="${#numbers.formatDecimal(devis.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+		</tr>
+		<tr class="total-ligne">
+			<th colspan="5" style="text-align:right;">TVA</th>
+			<td th:text="${#numbers.formatDecimal(devis.montantTVA, 1, 'POINT', 2, 'COMMA') + ' €'}">
+		</tr>
+		<tr class="total-ligne">
+			<th colspan="5" style="text-align:right;">Total TTC</th>
+			<td th:text="${#numbers.formatDecimal(devis.montantTTC, 1, 'POINT', 2, 'COMMA') + ' €'}">
+		</tr>
+		</tfoot>
+	</table>
+
+	<div class="pied-page">
+		<p>Merci de votre confiance.</p>
+		<p>Cryorbiter - 1 rue de la Lune, 99999 Moon City</p>
+	</div>
+</div>
+
+<button class="bouton-imprimer" onclick="window.print()">🖨️ Imprimer le devis</button>
+
+<section class="retour associe">
+	<a th:href="@{/listeDevis}" >Voir la liste des devis</a>
+</section>
+
+<!-- Footer inclus via fragment -->
+<div th:replace="~{inc/footer :: footer}"></div>
+<script th:src="@{/menu.js}" defer></script>
+
+</body>
+</html>

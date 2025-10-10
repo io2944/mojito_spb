@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des factures | Mojoto</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/style.css}" />
+    <script th:src="@{/menu.js}" defer></script>
+</head>
+<body>
+<div th:replace="inc/header :: header"></div>
+
+<div class="retour">
+    <a th:href="@{/createFacture}">Créer une nouvelle facture</a>
+</div>
+
+    <!-- Liste de factures -->
+    <div class="liste">
+        <section class="cadre">
+            <h2>Liste des factures</h2>
+
+            <!-- Message si aucune facture -->
+            <p th:if="${#lists.isEmpty(factures)}">Aucune facture enregistrée.</p>
+
+            <!-- Cartes pour chaque facture -->
+            <div th:each="facture : ${factures}" class="carte-client">
+                <div class="titre-client">
+                    <p><span th:text="${facture.nomDocument}"></span></p>
+<!--                    <p><span th:text="${#dates.format(facture.date, 'yyyy-MM-dd')}"></span></p>-->
+                    <p><span th:text="${facture.type}"></span></p>
+                    <p><span th:text="${facture.statutFacture}"></span></p>
+                </div>
+                <div class="carte-actions">
+                    <a class="bouton-carte" th:href="@{/viewFacture/{id}(id=${facture.id})}">Voir</a>
+                    <a class="bouton-carte" th:href="@{/modifierFacture/{id}(id=${facture.id})}">Modifier</a>
+                    <a class="bouton-carte" th:href="@{/deleteFacture(id=${facture.id})}"
+                       onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+<!-- Footer inclus via fragment Thymeleaf -->
+<div th:replace="inc/footer :: footer"></div>
+</body>
+</html>

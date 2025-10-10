@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>Liste des clients</title>
+		<link type="text/css" rel="stylesheet" th:href="@{/style.css}"/>
+	</head>
+	<body>
+		<div th:replace="~{inc/header :: header}"></div>
+		<!-- Retour à la page de création du client -->
+		<div class="retour">
+			<a th:href="@{/createClient}">Créer un client</a>
+		</div>
+
+		<!-- Liste de clients qui apparaît sur la page principale commercial -->
+		<div class="liste">
+			<section class="cadre">
+				<h2>Liste de vos clients</h2>
+				<p th:if="${#lists.isEmpty(clients)}"
+				   class="error">Aucun client enregistré</p>
+				<div th:each="client : ${clients}" class="carte-client">
+					<div class="titre-client-list">
+						<p th:text="${client.nom}"></p>
+						<p th:text="${client.typeClient}"></p>
+						<p th:text="${client.email}"></p>
+					</div>
+					<div class="carte-actions">
+						<a class="bouton-carte" th:href="@{/viewClient/{id}(id=${client.id})}">Consulter</a>
+						<a class="bouton-carte" th:href="@{/updateClient/{id}(id=${client.id})}">Modifier</a>
+						<a class="bouton-carte" th:href="@{/listClient(clientId=${client.id})}">Supprimer</a>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- Footer inclus en fragment Thymeleaf -->
+		<div th:replace="~{inc/footer :: footer}"></div>
+		<script th:src="@{/menu.js}" defer></script>
+	</body>
+</html>

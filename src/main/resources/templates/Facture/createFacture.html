@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Création d'une facture</title>
+  <link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+  <script th:src="@{/menu.js}" defer></script>
+  <script th:src="@{/facture.js}" defer></script>
+</head>
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+<div>
+
+  <legend>Informations facture</legend>
+
+  <form class="form" th:action="@{/createFacture}" method="post" th:object="${factureForm}" accept-charset="utf-8">
+    <!-- Étape 1 : Sélection de la commande -->
+    <div class="form-champs">
+      <label for="commandeId">Commande associée *</label>
+      <select id="commandeId" th:field="*{commande.id}" required>
+        <option value="">-- Choisissez une commande --</option>
+        <option th:each="commande : ${commandes}"
+                th:value="${commande.id}"
+                th:text="'Commande #' + ${commande.id} + ' - ' + ${commande.nomDocument}"
+                th:selected="${factureForm.commande != null} ? ${factureForm.commande.id} == ${commande.id} : false">
+        </option>
+      </select>
+    </div>
+
+    <fieldset class="cadre">
+      <input type="hidden" th:field="*{clientId}" th:value="${factureForm.clientId}" />
+      <!-- Champs pré-remplis -->
+      <div class="form-champs">
+        <input type="text" class="champs" th:field="*{nomDocument}" placeholder="Nom du document"/>
+        <input type="text" class="champs" th:field="*{libelle}" placeholder="Libellé"/>
+      </div>
+
+      <div class="form-champs">
+        <input type="date" class="champs" th:field="*{date}"/>
+        <input type="number" class="champs" th:field="*{poids}" step="0.01" placeholder="Poids (kg)"/>
+      </div>
+
+      <div class="form-champs">
+        <input type="number" class="champs" th:field="*{tva}" step="0.01" placeholder="TVA (%)"/>
+        <input type="number" class="champs" th:field="*{prixKilo}" step="0.01" placeholder="Prix au kilo"/>
+      </div>
+
+      <div class="form-champs">
+        <select id="type" th:field="*{type}">
+          <option value="">-- Type de produits --</option>
+          <option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
+        </select>
+        <select id="statutFacture" th:field="*{statutFacture}">
+          <option value="">-- Statut de la facture --</option>
+          <option th:each="s : ${statuts}" th:value="${s}" th:text="${s}"></option>
+        </select>
+      </div>
+
+      <div class="form-champs">
+        <textarea id="commentaire" th:field="*{commentaire}" rows="4" cols="60" placeholder="Commentaire"></textarea>
+      </div>
+
+<!--      <div th:if="${message != null}"-->
+<!--           th:style="'color:' + (${erreur} != null ? 'red' : 'green') + '; font-weight:bold;'">-->
+<!--        <span th:text="${message}"></span>-->
+<!--      </div>-->
+
+      <div class="form-boutons">
+        <button type="submit" class="bouton-action"
+                th:text="valider"
+                th:value="valider"></button>
+        <button class="bouton-action" type="reset">Effacer</button>-->
+      </div>
+    </fieldset>
+  </form>
+
+</div>
+<!-- Footer inclus via fragment Thymeleaf -->
+<div th:replace="~{inc/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+	<script th:src="@{/menu.js}" defer></script>
+	<title>Liste des utilisateurs</title>
+</head>
+<body>
+	<!-- Header inclus -->
+	<div th:replace="~{inc/header :: header}"></div>
+
+	<a class="retour" th:href="@{/usercreate}">Créer un utilisateur</a>
+
+	<div class="liste">
+		<section class="cadre">
+			<h2>Liste des utilisateurs</h2>
+			<p th:if="${#lists.isEmpty(users)}"
+			   class="error">Aucun user enregistré</p>
+
+			<div th:each="user : ${users}" class="carte-client">
+				<div class="titre-client-list">
+					<p th:text="${user.username}"></p>
+					<p th:text="${user.email}"></p>
+					<p><span th:each="role : ${user.roles}" th:text="${role.name} + ' '"></span></p>
+				</div>
+				<div class="carte-actions">
+					<a class="bouton-carte" th:href="@{/userview(userId=${user.id})}">Consulter</a>
+					<a class="bouton-carte" th:href="@{/useredit(userId=${user.id})}">Modifier</a>
+					<a class="bouton-carte" th:href="@{/userdelete(userId=${user.id})}">Supprimer</a>
+				</div>
+			</div>
+
+		</section>
+	</div>
+<!-- Footer inclus -->
+<div th:replace="~{inc/footer :: footer}"></div>
+</body>
+</html>

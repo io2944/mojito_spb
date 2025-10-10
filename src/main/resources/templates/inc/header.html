@@ -1,0 +1,78 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="fr" xmlns:th="http://www.thymeleaf.org">-->
+<!--	<head>-->
+<!--		<meta charset="utf-8">-->
+<!--		<title th:value="${pageTitle != null ? pageTitle : 'CRM - Mojito'}"></title>-->
+<!--		<link type="text/css" rel="stylesheet" th:href="@{/style.css}">-->
+<!--		<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--	</head>-->
+<!--	<body>-->
+<header th:fragment="header">
+		<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+		<img th:src="@{/images/Mojito.svg}" alt="Logo du CRM Mojito" width="100" height="100">
+		<h1>Mojito</h1>
+			<nav>
+				<ul class="nav-menu">
+					<!--Les devis-->
+					<li class="nav-bouton-parent">
+						<a href="#" class="nav-bouton">Devis</a>
+						<div class="dropdown-menu">
+							<div class="dropdown-menu-buttons">
+								<a class="nav-bouton" th:href="@{/createDevis}">Créer un devis</a>
+								<a class="nav-bouton" th:href="@{/listeDevis}">Liste des devis</a>
+							</div>
+						</div>
+					</li>
+
+					<!--Les commandes-->
+					<li class="nav-bouton-parent">
+						<a href="#" class="nav-bouton">Commandes</a>
+						<div class="dropdown-menu">
+							<div class="dropdown-menu-buttons">
+								<a class="nav-bouton" th:href="@{/creerCommande}">Créer une commande</a>
+								<a class="nav-bouton" th:href="@{/listeCommande}">Liste des commandes</a>
+							</div>
+						</div>
+					</li>
+
+					<!--Les factures-->
+					<li class="nav-bouton-parent">
+						<a href="#" class="nav-bouton">Factures</a>
+						<div class="dropdown-menu">
+							<div class="dropdown-menu-buttons">
+								<a class="nav-bouton" th:href="@{/createFacture}">Créer une facture</a>
+								<a class="nav-bouton" th:href="@{/listeFacture}">Liste des factures</a>
+							</div>
+						</div>
+					</li>
+
+					<!--Les clients-->
+					<li class="nav-bouton-parent">
+						<a href="#" class="nav-bouton">Client</a>
+						<div class="dropdown-menu">
+							<div class="dropdown-menu-buttons">
+								<a class="nav-bouton" th:href="@{/createClient}">Créer un client</a>
+								<a class="nav-bouton" th:href="@{/listClient}">Liste des clients</a>
+							</div>
+						</div>
+					</li>
+
+					<!-- Menu Administration avec dropdown -->
+					<li class="nav-bouton-parent" style="position: relative;">
+						<a href="#" class="nav-bouton" id="admin-button">Administration</a>
+						<div class="dropdown-menu">
+							<div class="dropdown-menu-buttons">
+								<a class="nav-bouton" th:href="@{/usercreate}">Créer un utilisateur</a>
+								<a class="nav-bouton" th:href="@{/userslist}">Liste des utilisateurs</a>
+								<a class="nav-bouton" th:href="@{/rolecreate}">Créer un rôle</a>
+								<a class="nav-bouton" th:href="@{/roleslist}">Liste des rôles</a>
+							</div>
+						</div>
+					</li>
+
+					<li><a th:href="@{/logout}" class="nav-bouton">Se déconnecter</a></li>
+				</ul>
+			</nav>
+
+</header>
+<!--	<main>-->

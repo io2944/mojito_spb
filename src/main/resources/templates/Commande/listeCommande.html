@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>Liste des commandes</title>
+		<link rel="stylesheet" th:href="@{/style.css}"/>
+	</head>
+	<body>
+		<div th:replace="~{inc/header :: header}"></div>
+
+		<div class="retour">
+			<a th:href="@{/creerCommande}">Créer une nouvelle commande</a>
+		</div>
+
+		<!-- Liste de factures -->
+		<div class="liste">
+			<section class="cadre">
+				<h2>Liste des commandes</h2>
+
+				<!-- Cas : aucune commande -->
+				<p th:if="${#lists.isEmpty(commandes)}">Aucune commande enregistrée.</p>
+
+				<!-- Cartes pour chaque facture -->
+				<div th:each="commande : ${commandes}" class="carte-client">
+					<div class="titre-client">
+						<p><span th:text="${commande.nomDocument}"></span></p>
+						<!--                    <p><span th:text="${#dates.format(facture.date, 'yyyy-MM-dd')}"></span></p>-->
+<!--						<p><span th:text="${commande.client.nom}">'N/A'</span></p>-->
+						<p><span th:text="${commande.client != null ? commande.client.nom : 'Client manquant'}"></span></p>
+						<p><span th:text="${commande.statutCommande}"></span></p>
+					</div>
+
+					<div class="carte-actions actions">
+						<a class="bouton-carte" th:href="@{/viewCommande/{id}(id=${commande.id})}">Consulter</a>
+						<a class="bouton-carte" th:href="@{/modifierCommande/{id}(id=${commande.id})}">Modifier</a>
+						<a class="bouton-carte" th:href="@{/deleteCommande(id=${commande.id})}"
+						   onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
+					</div>
+				</div>
+			</section>
+		</div>
+		<div th:replace="~{inc/footer :: footer}"></div>
+		<script th:src="@{/menu.js}" defer></script>
+	</body>
+</html>

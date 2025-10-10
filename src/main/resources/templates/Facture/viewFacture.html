@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Facture #<span th:text="${facture.nomDocument}"></span> | Mojito</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/styleDocuments.css}" />
+    <script th:src="@{/menu.js}" defer></script>
+</head>
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+<section class="carte-actions">
+    <a class="retour" th:href="@{/viewFacture/{id}(id=${facture.id})}">Imprimer</a>
+    <a class="retour" th:href="@{/modifierFacture/{id}(id=${facture.id})}">Modifier</a>
+    <a class="retour" th:href="@{/deleteFacture(id=${facture.id})}"
+       onclick="return confirm('Confirmer la suppression du devis ?');">Supprimer</a>
+</section>
+<!-- Affichage du message -->
+<p class="info" th:text="${message}"></p>
+<div class="page-document">
+
+    <div class="en-tete-document">
+        <div class="entreprise">
+            <h1>Cryorbiter</h1>
+            <p>1, rue de la Lune</p>
+            <p>99999 Moon City</p>
+            <p>Tél : 02 02 02 02 02</p>
+            <p>Email : contact@cryorbiter.com</p>
+        </div>
+
+        <div class="bloc-client">
+            <h2>Client</h2>
+            <p th:text="${facture.commande.client.prenom} + ' ' + ${facture.client.nom}"></p>
+            <p th:text="${facture.commande.client.email}"></p>
+            <p th:text="${facture.commande.client.telephoneFixe}"></p>
+        </div>
+    </div>
+
+    <div class="infos-document">
+        <h2>Facture n° <span th:text="${facture.nomDocument}"></span></h2>
+        <p>Date : <span th:text="${#dates.format(facture.date, 'dd/MM/yyyy')}"></span></p>
+        <p th:text="'Objet : ' + ${facture.libelle}"></p>
+    </div>
+
+    <div class="additionnelle">
+        <p>Informations additionnelles : Service anti-trash - Garantie: 2 ans.</p>
+    </div>
+    <hr>
+
+    <table class="document">
+        <thead>
+            <tr>
+                <th scope="col">Libelle</th>
+                <th scope="col">Date</th>
+                <th scope="col">Poids (en kilos)</th>
+                <th scope="col">Prix unitaire HT</th>
+                <th scope="col">%TVA</th>
+                <th scope="col">Total HT</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row" th:text="${facture.libelle}"></th>
+                <td th:text="${#dates.format(facture.date, 'yyyy-MM-dd')}"></td>
+                <td th:text="${#numbers.formatDecimal(facture.poids, 1, 'POINT', 2, 'COMMA') + ' kg'}"></td>
+                <td th:text="${#numbers.formatDecimal(facture.prixKilo, 1, 'POINT', 2, 'COMMA') + ' €/kg'}"></td>
+                <td th:text="${#numbers.formatDecimal(facture.tva, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+                <td th:text="${#numbers.formatDecimal(facture.commande.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+        <tr class="total-ligne">
+            <th colspan="5" style="text-align:right;">Total HT</th>
+            <td th:text="${#numbers.formatDecimal(facture.commande.devis.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+        </tr>
+        <tr class="total-ligne">
+            <th colspan="5" style="text-align:right;">TVA</th>
+            <td th:text="${#numbers.formatDecimal(facture.commande.devis.montantTVA, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+
+        </tr>
+        <tr class="total-ligne">
+            <th colspan="5" style="text-align:right;">Total TTC</th>
+            <td th:text="${#numbers.formatDecimal(facture.commande.devis.montantTTC, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+
+        </tr>
+        </tfoot>
+    </table>
+
+    <div class="pied-page">
+        <p>Merci de votre confiance.</p>
+        <p>Cryorbiter - 1 rue de la Lune, 99999 Moon City</p>
+    </div>
+</div>
+
+<button class="bouton-imprimer" onclick="window.print()">🖨️ Imprimer le devis</button>
+<div class="boutons-retour">
+    <a class="retour" th:href="@{/listeFacture}">Retour à la liste</a>
+</div>
+
+
+<div th:replace="~{inc/footer :: footer}"></div>
+</body>
+</html>
+

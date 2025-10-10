@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Créer une commande</title>
+	<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+	<div th:replace="~{inc/header :: header}"></div>
+
+	<h2>Créer une commande</h2>
+
+	<form class="form" method="post" th:action="@{/creerCommande}" th:object="${commandeForm}" accept-charset="utf-8">
+		<div class="form-champs">
+			<label for="devisId">Devis associé :</label>
+			<select id="devisId" name="devisId" required>
+				<option value="">-- Choisissez un devis --</option>
+				<option th:each="devis : ${devisses}"
+						th:value="${devis.id}"
+						th:text="'Devis #' + ${devis.id} + ' - ' + ${devis.nomDocument}">
+				</option>
+			</select>
+		</div>
+
+		<fieldset class="cadre">
+			<input type="hidden" th:field="*{clientId}" th:value="${commandeForm.clientId}" />
+			<div class="form-champs">
+				<input type="text" class="champs"
+					   th:field="*{nomDocument}"
+					   placeholder="Nom du document"/><br/>
+				<input type="text" class="champs"
+					   th:value="${commandeForm.libelle}" th:field="*{libelle}" placeholder="Libellé"/><br/>
+			</div>
+			<div class="type">
+				<label>Date :</label>
+				<input type="date" class="champs" th:field="*{date}"/><br/>
+
+				<label>Poids :</label>
+				<input type="number" class="champs" th:field="*{poids}" step="0.01" placeholder="Poids"><br/>
+			</div>
+			<div class="form-champs">
+				<label>TVA :</label>
+				<input type="number" class="champs" th:field="*{tva}" step="0.01"/><br/>
+				<label>Prix au kilo :</label>
+				<input type="number" class="champs" th:field="*{prixKilo}" step="0.01"/><br/>
+			</div>
+			<div class="form-champs">
+				<label for="type">Type<span class="required">*</span></label>
+				<select id="type" name="type" required>
+					<option>--Choisissez votre type de commande--</option>
+					<option th:each="t : ${types}" th:value="${t}" th:text="${t}"
+							th:selected="${commandeForm.type} == ${t}">
+					</option>
+				</select>
+				<label for="statutCommande">Statut de la commande <span class="required">*</span></label>
+				<select id="statutCommande" name="statutCommande" required>
+					<option th:each="s : ${statuts}" th:value="${s}" th:text="${s}"
+							th:selected="${commandeForm.statutCommande} == ${s}">
+					</option>
+				</select>
+			</div>
+			<div class="colonne">
+				<label for="commentaire" class="title">Commentaire</label>
+				<textarea id="commentaire" name="commentaire" rows="4" cols="60"
+						  th:text="${commandeForm.commentaire}"></textarea>
+			</div>
+			<div class="form-boutons">
+				<button type="submit" class="bouton-action"
+						th:text="valider"
+						th:value="valider"></button>
+				<button class="bouton-action" type="reset">Effacer</button>-->
+			</div>
+	</fieldset>
+</form>
+<div th:replace="~{inc/footer :: footer}"></div>
+<script th:src="@{/menu.js}" defer></script>
+</body>
+</html>

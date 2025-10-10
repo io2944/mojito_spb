@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+	<script th:src="@{/menu.js}" defer></script>
+	<title th:text="${isEdit} ? 'Édition d\'un utilisateur' : 'Création d\'un utilisateur'"></title>
+</head>
+
+	<body>
+	<!-- Header inclus -->
+	<div th:replace="inc/header :: header"></div>
+
+
+		<h2 th:text="${isEdit} ? 'Édition d\'un utilisateur' : 'Création d\'un utilisateur'"></h2>
+
+		<section role="alert">
+			<div class="error" th:if="${error}" th:text="${error}"></div>
+		</section>
+
+		<form th:action="@{${isEdit} ? '/useredit' : '/usercreate'}" method="post" class="form">
+			<fieldset class="cadre">
+				<!-- Champ caché seulement si édition -->
+				<input type="hidden" name="id" th:if="${isEdit}" th:value="${user.id}"/>
+
+				<div class="form-champs">
+					<label for="username">Nom d'utilisateur:</label>
+					<input class="champs" type="text" id="username" name="username" required
+						   th:value="${user.username}"/>
+				</div>
+
+<!--				<div class="form-champs">-->
+<!--					<label for="password">Mot de passe:</label>-->
+<!--					<input class="champs" type="password" id="password" name="password" required-->
+<!--						   th:value="${user.password}"/>-->
+<!--				</div>-->
+
+				<div class="form-champs">
+					<label for="email">Email:</label>
+					<input class="champs" type="email" id="email" name="email" required th:value="${user.email}"/>
+				</div>
+
+				<div class="form-champs">
+					<label for="roles">Rôles:</label>
+					<select id="roles" name="roles" required multiple>
+						<option value="" disabled>Sélectionner un rôle</option>
+						<option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"
+								th:selected="${user.roles != null and #arrays.contains(user.roles, role.id.intValue())}">
+						</option>
+					</select>
+				</div>
+				<div class="form-boutons">
+					<button type="submit"
+							th:text="${isEdit} ? 'Modifier l\'utilisateur' : 'Créer l\'utilisateur'"
+							class="bouton-action">
+					</button>
+				</div>
+			</fieldset>
+		</form>
+	</body>
+<!-- Footer inclus -->
+<div th:replace="inc/footer :: footer"></div>
+
+</html>

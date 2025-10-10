@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <script th:src="@{/menu.js}" defer></script>
+    <title>Visualisation d'un utilisateur</title>
+    <link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+</head>
+
+<body>
+    <!-- Inclusion du header en fragment -->
+    <div th:replace="~{inc/header :: header}"></div>
+
+    <h2>Visualisation de l'utilisateur <span th:text="${user.username}"></span></h2>
+
+    <section role="alert" th:if="${error}">
+        <div class="error" th:text="${error}"></div>
+    </section>
+
+    <div class="info-client">
+        <div class="vignette-active">
+            <p>Nom utilisateur :<span th:text="${user.username}"></span></p>
+        </div>
+        <div class="vignette-active">
+            <p>Email utilisateur :<span th:text="${user.email}"></span></p>
+        </div>
+        <div class="vignette-active">
+            <p>Role(s) :<span th:each="role : ${user.roles}" th:text="${role.name} + ' '"></span></p>
+        </div>
+    </div>
+
+    <div class="carte-actions">
+        <a class="bouton-carte" th:href="@{/useredit(userId=${user.id})}">Modifier</a>
+        <a class="bouton-carte" th:href="@{/userdelete(userId=${user.id})}">Supprimer</a>
+    </div>
+
+    <div th:replace="~{inc/footer :: footer}"></div>
+
+</body>
+</html>
