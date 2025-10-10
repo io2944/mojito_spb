@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Accueil Mojito</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+
+<h1>Bienvenue sur Mojito CRM</h1>
+<p>Vous êtes connecté !</p>
+
+<div th:replace="~{inc/footer :: footer}"></div>
+<script th:src="@{/menu.js}" defer></script>
+</body>
+</html>

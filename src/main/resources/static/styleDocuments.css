@@ -1,0 +1,171 @@
+/* ------------------------- */
+/*   STYLE DOCUMENTS (A4)    */
+/* ------------------------- */
+
+@page {
+    size: A4;
+    margin: 20mm;
+}
+.document {
+    /*display: block;*/
+    width: 100%;
+    margin: 20px auto;
+}
+body {
+    font-family: "Helvetica", Roboto, sans-serif;
+    color: #222;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.page-document {
+    width: 210mm;
+    min-height: 297mm;
+    background: white;
+    margin: 30px auto;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    /* Ajout pour footer en bas */
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---- En-tête ---- */
+.en-tete-document {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+}
+
+.entreprise h1 {
+    margin: 0;
+    color: #222;
+    font-size: 24px;
+}
+
+.entreprise p {
+    margin: 2px 0;
+    font-size: 14px;
+    color: #444;
+}
+
+.bloc-client {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: #f9f9f9;
+}
+
+.bloc-client h2 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.bloc-client p {
+    margin: 2px 0;
+    font-size: 14px;
+}
+
+/* ---- Infos générales ---- */
+.infos-document {
+    border-top: 2px solid #32cd32;
+    border-bottom: 2px solid #32cd32;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.infos-document h2 {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+    color: #32cd32;
+}
+
+/* ---- Table du devis ---- */
+table.document {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+table.document thead {
+    background-color: #281880;
+    color: white;
+}
+
+table.document th,
+table.document td {
+    border: 1px solid #ddd;
+    padding: 8px 10px;
+    text-align: left;
+}
+
+table.document tbody tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.total-ligne th,
+.total-ligne td {
+    border: none;
+    padding: 6px 10px;
+}
+
+tfoot .total-ligne th {
+    text-align: right;
+    color: #32cd32;
+}
+
+tfoot .total-ligne td {
+    font-weight: bold;
+}
+
+/* ---- Pied de page ---- */
+.pied-page {
+    border-top: 2px solid #32cd32;
+    text-align: center;
+    /*margin-top: 40px;*/
+    padding: 10px 0;
+    font-size: 12px;
+    color: #555;
+    /* pousse le footer en bas */
+    margin-top: auto;
+}
+
+/* ---- Bouton imprimer ---- */
+.bouton-imprimer {
+    display: block;
+    margin: 20px auto;
+    background-color: #281880;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.bouton-imprimer:hover {
+    background-color: #281880;
+}
+
+/* ---- Impression ---- */
+@media print {
+    body {
+        background: none;
+    }
+    .page-document {
+        box-shadow: none;
+        margin: 0;
+        padding: 0;
+    }
+    .bouton-imprimer,
+    header,
+    footer {
+        display: none;
+    }
+}
