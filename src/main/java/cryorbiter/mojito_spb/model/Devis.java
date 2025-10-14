@@ -21,12 +21,4 @@ public class Devis extends Document {
 
 	public Devis() {}
 
-	public void nommerDevis() {
-        if (this.date != null) {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyyMMdd_HHmm");
-            this.nomDocument = "DEV_" + sdf.format(this.date);
-        } else {
-            this.nomDocument = "DEV_SANS_DATE";
-        }
-    }
 }

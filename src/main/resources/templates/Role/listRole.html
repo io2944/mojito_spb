@@ -1,34 +1,38 @@
+<!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
-<script th:src="@{/menu.js}" defer></script>
-<title>Visualisation des rôles</title>
+<head>
+	<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+	<script th:src="@{/js/menu.js}" defer></script>
+	<title>Visualisation des rôles</title>
+</head>
+<body>
+	<!-- Header inclus -->
+	<div th:replace="~{inc/header :: header}"></div>
+	<div class="retour">
+		<a th:href="@{/rolecreate}">Créer un rôle</a>
+	</div>
 
+	<div class="liste">
+		<section class="cadre">
+			<h2>Liste des rôles</h2>
 
-<!-- Header inclus -->
-<div th:replace="inc/header :: header"></div>
-<a class="retour" th:href="@{/rolecreate}">Créer un rôle</a>
-
-<h2>Liste des rôles</h2>
-
-<section>
-	<table>
-		<thead>
-			<tr>
-				<th scope="col">Nom du rôle</th>
-				<th scope="col">Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr th:each="role : ${roles}">
-				<td th:text="${role.name}"></td>
-				<td class="form-boutons form-boutons-role">
+			<div th:each="role : ${roles}" class="carte-client">
+				<div class="titre-client">
+					<p><span th:text="${role.name}"></span></p>
+				</div>
+				<div class="form-boutons form-boutons-role">
 					<a class="bouton-carte" th:href="@{/roleedit(roleId=${role.id})}">Modifier</a>
 					<a class="bouton-carte" th:href="@{/roledelete(roleId=${role.id})}">Supprimer</a>
-				</td>
-			</tr>
-		</tbody>
-	</table>
-</section>
+				</div>
+			</div>
+		</section>
+	</div>
 
+	<div class="form-boutons form-boutons-role error-buttons">
+		<a th:href="@{/home}" class="bouton-action">Retour à l'accueil</a>
+	</div>
 <!-- Footer inclus -->
-<div th:replace="inc/footer :: footer"></div>
+<div th:replace="~{inc/footer :: footer}"></div>
+
+</body>
+</html>

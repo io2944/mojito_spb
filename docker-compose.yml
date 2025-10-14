@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      # Connection à PostgreSQL : changez POSTGRES_HOST selon l'environnement
+      SPRING_DATASOURCE_URL: jdbc:postgresql://${POSTGRES_HOST:-db}:5432/mojitodb
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER:-user}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD:-mdp}
+    depends_on:
+      - db
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: mojitodb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: mdp
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  db_data:

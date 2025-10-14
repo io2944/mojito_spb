@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Liste des factures | Mojoto</title>
     <link type="text/css" rel="stylesheet" th:href="@{/style.css}" />
-    <script th:src="@{/menu.js}" defer></script>
+    <script th:src="@{/js/menu.js}" defer></script>
 </head>
 <body>
 <div th:replace="inc/header :: header"></div>
@@ -39,7 +39,9 @@
         </section>
     </div>
 
-
+<div class="form-boutons form-boutons-role error-buttons">
+    <a th:href="@{/home}" class="bouton-action">Retour à l'accueil</a>
+</div>
 <!-- Footer inclus via fragment Thymeleaf -->
 <div th:replace="inc/footer :: footer"></div>
 </body>

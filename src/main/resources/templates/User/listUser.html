@@ -3,7 +3,7 @@
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
-	<script th:src="@{/menu.js}" defer></script>
+	<script th:src="@{/js/menu.js}" defer></script>
 	<title>Liste des utilisateurs</title>
 </head>
 <body>
@@ -33,7 +33,11 @@
 
 		</section>
 	</div>
-<!-- Footer inclus -->
-<div th:replace="~{inc/footer :: footer}"></div>
+
+	<div class="form-boutons form-boutons-role error-buttons">
+		<a th:href="@{/home}" class="bouton-action">Retour à l'accueil</a>
+	</div>
+	<!-- Footer inclus -->
+	<div th:replace="~{inc/footer :: footer}"></div>
 </body>
 </html>

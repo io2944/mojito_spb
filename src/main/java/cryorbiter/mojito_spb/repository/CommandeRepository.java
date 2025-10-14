@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import cryorbiter.mojito_spb.model.Commande;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -14,4 +15,6 @@ import java.util.List;
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
     long countByDate(Date date);
     List<Commande> findAllByClient(Client entity);
+
+    List<Commande> findByNomDocumentContainingIgnoreCase(String nom);
 }

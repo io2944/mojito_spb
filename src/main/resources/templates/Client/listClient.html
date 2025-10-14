@@ -18,7 +18,7 @@
 				<h2>Liste de vos clients</h2>
 				<p th:if="${#lists.isEmpty(clients)}"
 				   class="error">Aucun client enregistré</p>
-				<div th:each="client : ${clients}" class="carte-client">
+				<div th:each="client : ${clients.content}" class="carte-client">
 					<div class="titre-client-list">
 						<p th:text="${client.nom}"></p>
 						<p th:text="${client.typeClient}"></p>
@@ -30,10 +30,29 @@
 						<a class="bouton-carte" th:href="@{/listClient(clientId=${client.id})}">Supprimer</a>
 					</div>
 				</div>
+
+				<!-- Pagination simple -->
+				<div class="pagination">
+					<a th:if="${clients.hasPrevious()}"
+					   th:href="@{/listClient(page=${clients.number - 1}, size=${clients.size})}">&laquo; Précédent</a>
+
+					<span th:each="i : ${#numbers.sequence(0, clients.totalPages - 1)}">
+        				<a th:href="@{/listClient(page=${i}, size=${clients.size})}"
+					   		th:text="${i + 1}"
+		   					th:classappend="${i == clients.number} ? 'active' : ''"></a>
+    				</span>
+
+					<a th:if="${clients.hasNext()}"
+					   th:href="@{/listClient(page=${clients.number + 1}, size=${clients.size})}">Suivant &raquo;</a>
+				</div>
 			</section>
 		</div>
+		<div class="form-boutons form-boutons-role error-buttons">
+			<a th:href="@{/home}" class="bouton-action">Retour à l'accueil</a>
+		</div>
+
 		<!-- Footer inclus en fragment Thymeleaf -->
 		<div th:replace="~{inc/footer :: footer}"></div>
-		<script th:src="@{/menu.js}" defer></script>
+		<script th:src="@{/js/menu.js}" defer></script>
 	</body>
 </html>

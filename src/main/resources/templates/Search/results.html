@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Résultats de recherche pour ' + ${query}">Résultats</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <script th:src="@{/js/menu.js}" defer></script>
+</head>
+<body>
+<div th:replace="~{inc/header :: header}"></div>
+
+<h2 th:text="'Résultats pour : ' + ${query}"></h2>
+
+<div class="resultats-recherche">
+
+    <section th:if="${clients.size() > 0}">
+        <h3>Clients</h3>
+        <ul>
+            <li th:each="c : ${clients}">
+                👤 <a th:href="@{/viewClient/{id}(id=${c.id})}" th:text="${c.nom + ' ' + c.prenom}"></a>
+            </li>
+        </ul>
+    </section>
+
+    <section th:if="${devis.size() > 0}">
+        <h3>Devis</h3>
+        <ul>
+            <li th:each="d : ${devis}">
+                📄 <a th:href="@{/viewDevis/{id}(id=${d.id})}" th:text="${d.libelle}"></a>
+                (<span th:text="${d.client.nom}"></span>)
+            </li>
+        </ul>
+    </section>
+
+    <section th:if="${commandes.size() > 0}">
+        <h3>Commandes</h3>
+        <ul>
+            <li th:each="cmd : ${commandes}">
+                📦 <a th:href="@{/viewCommande/{id}(id=${cmd.id})}" th:text="${cmd.libelle}"></a>
+            </li>
+        </ul>
+    </section>
+
+    <section th:if="${factures.size() > 0}">
+        <h3>Factures</h3>
+        <ul>
+            <li th:each="f : ${factures}">
+                🧾 <a th:href="@{/viewFacture/{id}(id=${f.id})}" th:text="${f.libelle}"></a>
+            </li>
+        </ul>
+    </section>
+
+    <div th:if="${#lists.isEmpty(clients) and #lists.isEmpty(devis) and #lists.isEmpty(commandes) and #lists.isEmpty(factures)}">
+        <p>Aucun résultat trouvé pour "<span th:text="${query}"></span>".</p>
+    </div>
+
+</div>
+
+<div th:replace="~{inc/footer :: footer}"></div>
+</body>
+</html>

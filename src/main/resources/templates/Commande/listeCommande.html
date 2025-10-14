@@ -39,7 +39,10 @@
 				</div>
 			</section>
 		</div>
+		<div class="form-boutons form-boutons-role error-buttons">
+			<a th:href="@{/home}" class="bouton-action">Retour à l'accueil</a>
+		</div>
 		<div th:replace="~{inc/footer :: footer}"></div>
-		<script th:src="@{/menu.js}" defer></script>
+		<script th:src="@{/js/menu.js}" defer></script>
 	</body>
 </html>

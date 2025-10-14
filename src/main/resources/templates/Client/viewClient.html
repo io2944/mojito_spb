@@ -52,31 +52,40 @@
 				<article class="cadre-colonne">
 					<h2>Devis</h2>
 						<div class="vignette vignette-active" th:each="devis : ${devises}">
-							<p class="reference" th:text="${devis.nomDocument}"></p>
+							<p class="reference" >
+								<a th:href="@{/viewDevis/{id}(id=${devis.id})}"
+								   th:text="${devis.nomDocument}"
+								   class="lien-document"></a>
+							</p>
 							<p>Statut: <span th:text="${devis.statut}"></span></p>
-<!--						<div class="vignette vignette-active">-->
-<!--							<p class="reference">DEV-2025-09-17_001</p>-->
-<!--							<p>Statut: archivé</p>-->
 						</div>		
 				</article>
 				<article class="cadre-colonne">
 					<h2>Commandes</h2>
-						<div class="vignette vignette-active" th:each="commande : ${commandes}">
-								<p class="reference" th:text="${commande.nomDocument}"></p>
-								<p>Statut:<span th:text="${commande.statutCommande}"></span></p>
+						<div class="vignette vignette-active" th:each="com : ${commandes}">
+								<p class="reference">
+									<a th:href="@{/viewCommande/{id}(id=${com.id})}"
+										th:text="${com.nomDocument}"
+										class="lien-document"></a>
+								</p>
+								<p>Statut:<span th:text="${com.statutCommande}"></span></p>
 						</div>
 				</article>
 			</section>
 			<section class="cadre-article">
 				<h2>Factures</h2>
 					<div class="vignette vignette-active" th:each="facture : ${factures}">
-							<p class="reference" th:text="${facture.nomDocument}"></p>
+							<p class="reference">
+								<a th:href="@{/viewFacture/{id}(id=${facture.id})}"
+									th:text="${facture.nomDocument}"
+									class="lien-document"></a>
+							</p>
 							<p >Statut: <span th:text="${facture.statutFacture}"></span></p>
 					</div>
 			</section>
 		</div>			
 	<div th:replace="~{inc/footer :: footer}"></div>
-	<script th:src="@{/menu.js}" defer></script>
+	<script th:src="@{/js/menu.js}" defer></script>
 	</body>
 
 </html>

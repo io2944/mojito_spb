@@ -4,7 +4,7 @@
 <head>
     <link type="text/css" rel="stylesheet" th:href="@{/style.css}">
     <link type="text/css" rel="stylesheet" th:href="@{/error.css}">
-    <script th:src="@{/menu.js}" defer></script>
+    <script th:src="@{/js/menu.js}" defer></script>
     <title th:text="'Erreur ' + (${errorCode} ?: '???')"></title>
 </head>
 
@@ -22,7 +22,7 @@
 
         <p class="error-message">Allo Houston ?! On a un problème !</p>
         <div class="form-boutons form-boutons-role error-buttons">
-            <a th:href="@{/listeDevis}" class="bouton-action">Retour à la liste des devis</a>
+            <a th:href="@{/home}" class="bouton-action">Retour à l'accueil</a>
         </div>
     </div>
 

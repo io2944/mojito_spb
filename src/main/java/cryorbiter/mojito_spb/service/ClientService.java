@@ -1,14 +1,19 @@
 package cryorbiter.mojito_spb.service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import cryorbiter.mojito_spb.dto.DevisDto;
+import cryorbiter.mojito_spb.mapper.DevisMapper;
 import cryorbiter.mojito_spb.model.Client;
 import cryorbiter.mojito_spb.dto.ClientDto;
 import cryorbiter.mojito_spb.mapper.ClientMapper;
 import cryorbiter.mojito_spb.repository.ClientRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ClientService {
 
-    private ClientRepository clientRepository;
-    private ClientMapper clientMapper;
+    private final DevisMapper devisMapper;
+    private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;
 
-    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper) {
+    @Autowired
+    public ClientService(ClientRepository clientRepository, ClientMapper clientMapper, DevisMapper devisMapper) {
         this.clientRepository = clientRepository;
         this.clientMapper = clientMapper;
+        this.devisMapper = devisMapper;
     }
 
     public ClientDto creerClient(ClientDto client) {
@@ -76,10 +84,22 @@ public class ClientService {
         clientRepository.deleteById(client.getId());
     }
 
-    public List<ClientDto> getAllClients() {
+    public Page<ClientDto> getAllClients(int page, int size) {
         System.out.println("debug" + clientRepository.findAll());
-        return clientRepository.findAll().stream().map(clientMapper::toDto).collect(Collectors.toList());
-
+        PageRequest pageable = PageRequest.of(page, size);
+        return clientRepository.findAll(pageable).map(clientMapper::toDto);
     }
 
+    public List<ClientDto> getAllClients() {
+        return clientRepository.findAll().stream().map(clientMapper::toDto).toList();
+    }
+
+    public List<ClientDto> findByNom(String nom) {
+        return clientRepository.findByNomContainingIgnoreCase(nom)
+                .stream().map(clientMapper::toDto).toList();
+    }
+
+    public Long count() {
+        return clientRepository.count();
+    }
 }

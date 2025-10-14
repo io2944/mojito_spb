@@ -8,6 +8,8 @@ import cryorbiter.mojito_spb.dto.FactureDto;
 import cryorbiter.mojito_spb.service.CommandeService;
 import cryorbiter.mojito_spb.service.DevisService;
 import cryorbiter.mojito_spb.service.FactureService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -44,9 +46,17 @@ public class ClientController {
     }
 
     @GetMapping("/listClient")
-    public String showForm(Model model, HttpSession  session) {
-        List<ClientDto> clients = clientService.getAllClients();
-        System.out.println("debug" + clients.size());
+    public String showForm(Model model,
+                           @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "10") int size,
+                           HttpSession  session) {
+
+        Page<ClientDto> clients = clientService.getAllClients(page, size);
+        model.addAttribute("clientsPage", clients);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", clients.getTotalPages());
+        //List<ClientDto> clients = clientService.getAllClients();
+        //System.out.println("debug" + clients.size());
         model.addAttribute("clients", clients);
         return "Client/listClient";
     }

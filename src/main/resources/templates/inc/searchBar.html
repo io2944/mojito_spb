@@ -1,0 +1,35 @@
+<div class="searchbar-wrapper" th:fragment="searchBar">
+    <form th:action="@{/search}" method="get" class="search-container" onsubmit="return verifierRecherche()">
+        <input
+                type="text"
+                id="searchQuery"
+                name="query"
+                placeholder="Rechercher..."
+                class="search-input"
+                oninput="activerBouton()"
+        />
+        <button type="submit" id="btnSearch" class="search-button" disabled>
+            <img th:src="@{/images/search.svg}" alt="Rechercher">
+        </button>
+    </form>
+    <a th:href="@{/logout}" class="logout-button" title="Se déconnecter">
+        <img th:src="@{/images/logout.svg}" alt="Déconnexion">
+    </a>
+
+    <script>
+        function verifierRecherche() {
+            const valeur = document.getElementById("searchQuery").value.trim();
+            if (valeur.length < 3) {
+                alert("Veuillez entrer au moins 3 caractères pour lancer la recherche.");
+                return false;
+            }
+            return true;
+        }
+
+        function activerBouton() {
+            const input = document.getElementById("searchQuery");
+            const bouton = document.getElementById("btnSearch");
+            bouton.disabled = input.value.trim().length < 3;
+        }
+    </script>
+</div>

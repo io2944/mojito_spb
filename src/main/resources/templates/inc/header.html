@@ -8,10 +8,11 @@
 <!--	</head>-->
 <!--	<body>-->
 <header th:fragment="header">
-		<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
-		<img th:src="@{/images/Mojito.svg}" alt="Logo du CRM Mojito" width="100" height="100">
-		<h1>Mojito</h1>
-			<nav>
+	<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
+	<div class="header-container">
+	<img th:src="@{/images/Mojito.svg}" alt="Logo du CRM Mojito" width="100" height="100">
+
+			<div class="nav-left">
 				<ul class="nav-menu">
 					<!--Les devis-->
 					<li class="nav-bouton-parent">
@@ -69,10 +70,13 @@
 							</div>
 						</div>
 					</li>
-
-					<li><a th:href="@{/logout}" class="nav-bouton">Se déconnecter</a></li>
 				</ul>
-			</nav>
+
+			</div>
+		<div class="nav-right">
+			<div th:replace="~{inc/searchBar :: searchBar}"></div>
+		</div>
+	</div>
 
 </header>
 <!--	<main>-->

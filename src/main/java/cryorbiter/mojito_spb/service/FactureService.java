@@ -114,4 +114,16 @@ public class FactureService{
                 .map(factureMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public List<FactureDto> findByLibelle(String libelle) {
+        return factureRepository.findByLibelleContainingIgnoreCase(libelle)
+                .stream()
+                .map(factureMapper::toDto)
+                .toList();
+    }
+
+    public Long count() {
+        return factureRepository.count();
+    }
+
 }

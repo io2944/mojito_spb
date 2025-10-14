@@ -2,7 +2,7 @@
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<link type="text/css" rel="stylesheet" th:href="@{/style.css}">
-	<script th:src="@{/menu.js}" defer></script>
+	<script th:src="@{/js/menu.js}" defer></script>
 	<title th:text="${isEdit} ? 'Édition d\'un utilisateur' : 'Création d\'un utilisateur'"></title>
 </head>
 
@@ -28,11 +28,10 @@
 						   th:value="${user.username}"/>
 				</div>
 
-<!--				<div class="form-champs">-->
-<!--					<label for="password">Mot de passe:</label>-->
-<!--					<input class="champs" type="password" id="password" name="password" required-->
-<!--						   th:value="${user.password}"/>-->
-<!--				</div>-->
+				<div class="form-champs">
+					<label for="password">Mot de passe:</label>
+					<input class="champs" type="password" id="password" name="password" required />
+				</div>
 
 				<div class="form-champs">
 					<label for="email">Email:</label>
@@ -42,7 +41,7 @@
 				<div class="form-champs">
 					<label for="roles">Rôles:</label>
 					<select id="roles" name="roles" required multiple>
-						<option value="" disabled>Sélectionner un rôle</option>
+						<option value="" >Sélectionner un rôle</option>
 						<option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.name}"
 								th:selected="${user.roles != null and #arrays.contains(user.roles, role.id.intValue())}">
 						</option>

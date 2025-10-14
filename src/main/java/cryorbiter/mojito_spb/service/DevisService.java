@@ -102,4 +102,15 @@ public class DevisService {
                 .map(devisMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public List<DevisDto> findByLibelle(String libelle) {
+        return devisRepository.findByLibelleContainingIgnoreCase(libelle)
+                .stream()
+                .map(devisMapper::toDto)
+                .toList();
+    }
+
+    public Long count() {
+        return devisRepository.count();
+    }
 }

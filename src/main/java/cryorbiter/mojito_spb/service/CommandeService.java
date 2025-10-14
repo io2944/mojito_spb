@@ -108,4 +108,13 @@ public class CommandeService {
                 .map(commandeMapper::toDto)
                 .collect(Collectors.toList());
     }
+
+    public List<CommandeDto> findByLibelle(String nom) {
+        return commandeRepository.findByNomDocumentContainingIgnoreCase(nom)
+                .stream().map(commandeMapper::toDto).toList();
+    }
+
+    public Long count() {
+        return commandeRepository.count();
+    }
 }

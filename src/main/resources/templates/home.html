@@ -1,17 +1,53 @@
 <!DOCTYPE html>
 <html lang="fr" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Accueil Mojito</title>
-    <link th:href="@{/style.css}" rel="stylesheet">
-</head>
-<body>
-<div th:replace="~{inc/header :: header}"></div>
+    <head>
+        <meta charset="UTF-8">
+        <title>Accueil Mojito</title>
+        <link th:href="@{/style.css}" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script th:src="@{/js/dashboard.js}" defer></script>
+    </head>
 
-<h1>Bienvenue sur Mojito CRM</h1>
-<p>Vous êtes connecté !</p>
+    <body>
+        <div th:replace="~{inc/header :: header}"></div>
+        <section class="home-section">
 
-<div th:replace="~{inc/footer :: footer}"></div>
-<script th:src="@{/menu.js}" defer></script>
-</body>
+            <h1>Bienvenue sur Mojito CRM</h1>
+            <p >Gérez vos clients, devis, commandes et factures en toute simplicité.</p>
+
+            <div class="home-cadre">
+                <div class="home-button">
+                    <h3 id="nbClients" th:text="${nbClients}" >0</h3>
+                    <p> Clients enregistrés</p>
+                </div>
+                <div class="home-button">
+                    <h3 id="nbDevis" th:text="${nbDevis}">0</h3>
+                    <p> Devis en cours</p>
+                </div>
+                <div class="home-button">
+                    <h3 id="nbCommandes" th:text="${nbCommandes}">0</h3>
+                    <p> Commandes à traiter</p>
+                </div>
+                <div class="home-button">
+                    <h3 id="nbFactures" th:text="${nbFactures}">0</h3>
+                    <p> Factures en cours</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="dashboard-container">
+            <div class="dashboard-chart">
+                <h3>Ventes par mois</h3>
+                <canvas id="chartVentesParMois"></canvas>
+            </div>
+            <div class="dashboard-chart">
+                <h3>Top 5 Clients</h3>
+                <canvas id="chartTopClients"></canvas>
+            </div>
+        </div>
+
+
+        <div th:replace="~{inc/footer :: footer}"></div>
+        <script th:src="@{/js/menu.js}" defer></script>
+    </body>
 </html>

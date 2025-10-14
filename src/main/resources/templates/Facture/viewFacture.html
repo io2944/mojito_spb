@@ -2,9 +2,9 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Facture #<span th:text="${facture.nomDocument}"></span> | Mojito</title>
+    <title th:text="'Facture ' + ${facture.nomDocument} + ' | Mojito'">Facture | Mojito</title>
     <link type="text/css" rel="stylesheet" th:href="@{/styleDocuments.css}" />
-    <script th:src="@{/menu.js}" defer></script>
+    <script th:src="@{/js/menu.js}" defer></script>
 </head>
 <body>
 <div th:replace="~{inc/header :: header}"></div>
@@ -64,23 +64,23 @@
                 <td th:text="${#numbers.formatDecimal(facture.poids, 1, 'POINT', 2, 'COMMA') + ' kg'}"></td>
                 <td th:text="${#numbers.formatDecimal(facture.prixKilo, 1, 'POINT', 2, 'COMMA') + ' €/kg'}"></td>
                 <td th:text="${#numbers.formatDecimal(facture.tva, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
-                <td th:text="${#numbers.formatDecimal(facture.commande.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+                <td th:text="${#numbers.formatDecimal(facture.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
             </tr>
         </tbody>
 
         <tfoot>
         <tr class="total-ligne">
             <th colspan="5" style="text-align:right;">Total HT</th>
-            <td th:text="${#numbers.formatDecimal(facture.commande.devis.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+            <td th:text="${#numbers.formatDecimal(facture.montantHT, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
         </tr>
         <tr class="total-ligne">
             <th colspan="5" style="text-align:right;">TVA</th>
-            <td th:text="${#numbers.formatDecimal(facture.commande.devis.montantTVA, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+            <td th:text="${#numbers.formatDecimal(facture.montantTVA, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
 
         </tr>
         <tr class="total-ligne">
             <th colspan="5" style="text-align:right;">Total TTC</th>
-            <td th:text="${#numbers.formatDecimal(facture.commande.devis.montantTTC, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
+            <td th:text="${#numbers.formatDecimal(facture.montantTTC, 1, 'POINT', 2, 'COMMA') + ' €'}"></td>
 
         </tr>
         </tfoot>
