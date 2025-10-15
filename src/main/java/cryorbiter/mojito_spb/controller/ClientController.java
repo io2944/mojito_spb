@@ -51,7 +51,8 @@ public class ClientController {
                            @RequestParam(defaultValue = "10") int size,
                            HttpSession  session) {
 
-        Page<ClientDto> clients = clientService.getAllClients(page, size);
+        PageRequest pageable = PageRequest.of(page, size);
+        Page<ClientDto> clients = clientService.getAllClients(pageable);
         model.addAttribute("clientsPage", clients);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", clients.getTotalPages());

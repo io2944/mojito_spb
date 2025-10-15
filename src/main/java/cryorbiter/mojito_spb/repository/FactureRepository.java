@@ -40,4 +40,6 @@ public interface FactureRepository extends JpaRepository<Facture, Long> {
         LIMIT 5
 """, nativeQuery = true)
     List<Object[]> getTopClientsParChiffreAffaire();
+
+    List<Facture> findByClientEmail(String mail);
 }

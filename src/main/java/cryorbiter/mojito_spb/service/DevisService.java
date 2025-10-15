@@ -9,6 +9,8 @@ import cryorbiter.mojito_spb.model.Client;
 import cryorbiter.mojito_spb.model.Devis;
 import cryorbiter.mojito_spb.repository.DevisRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,6 +103,11 @@ public class DevisService {
         return devises.stream()
                 .map(devisMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public Page<DevisDto> getAllDevis(Pageable pageable) {
+        return devisRepository.findAll(pageable)
+                .map(devisMapper::toDto);
     }
 
     public List<DevisDto> findByLibelle(String libelle) {

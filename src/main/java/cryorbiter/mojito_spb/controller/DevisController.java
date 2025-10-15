@@ -3,6 +3,9 @@ package cryorbiter.mojito_spb.controller;
 import java.util.List;
 
 import cryorbiter.mojito_spb.service.DevisService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -36,9 +39,15 @@ public class DevisController {
 	}
 
 	@GetMapping("/listeDevis")
-    public String showForm(Model model, HttpSession httpSession) {
-		List<DevisDto> listDevis = devisService.getAllDevis();
+    public String showForm(Model model,
+						   @RequestParam(defaultValue = "0") int page,
+						   @RequestParam(defaultValue = "10") int size,
+						   HttpSession httpSession) {
+		Pageable pageable = PageRequest.of(page, size);
+		Page<DevisDto> listDevis = devisService.getAllDevis(pageable);
 		model.addAttribute("listDevis", listDevis);
+		model.addAttribute("currentPage", page);
+		model.addAttribute("totalPages", listDevis.getTotalPages());
 		model.addAttribute("statuts", StatutDevis.values());
 		return "Devis/listeDevis";
 	}

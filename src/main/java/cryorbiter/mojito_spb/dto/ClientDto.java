@@ -34,8 +34,28 @@ public class ClientDto implements Serializable {
     public ClientDto() {
     }
 
+    public ClientDto(String nom, String prenom, String entreprise, String adresse, String telephoneFixe,
+                     String telephoneMobile, String commentaire, String email, boolean active, TypeClient typeClient,
+                     StatutClient statutClient) {
+        this.id = id;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.entreprise = entreprise;
+        this.adresse = adresse;
+        this.telephoneFixe = telephoneFixe;
+        this.telephoneMobile = telephoneMobile;
+        this.commentaire = commentaire;
+        this.email = email;
+        this.active = active;
+        this.typeClient = typeClient;
+        this.statutClient = statutClient;
+        this.devisList = devisList;
+        this.commandesList = commandesList;
+        this.facturesList = facturesList;
+    }
+
     public ClientDto(String nom, String prenom, String entreprise, String telephoneFixe, String telephoneMobile,
-            String commentaire, String email, boolean isActive, TypeClient typeClient, StatutClient statutClient) {
+                     String commentaire, String email, boolean isActive, TypeClient typeClient, StatutClient statutClient) {
 
         this.nom = nom;
         this.prenom = prenom;

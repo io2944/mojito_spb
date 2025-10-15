@@ -84,9 +84,9 @@ public class ClientService {
         clientRepository.deleteById(client.getId());
     }
 
-    public Page<ClientDto> getAllClients(int page, int size) {
+    public Page<ClientDto> getAllClients(PageRequest pageable) {
         System.out.println("debug" + clientRepository.findAll());
-        PageRequest pageable = PageRequest.of(page, size);
+
         return clientRepository.findAll(pageable).map(clientMapper::toDto);
     }
 
