@@ -102,7 +102,7 @@ cache:
 # -----------------------------
 package_job:
   stage: package
-  image: docker:27
+  image: maven:3.9-eclipse-temurin-25
   services:
     - name: docker:dind
       alias: docker
@@ -112,9 +112,13 @@ package_job:
     DOCKER_DRIVER: overlay2
     DOCKER_TLS_CERTDIR: ""
   script:
-    - echo "Login to GitLab registry..."
-    - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
-    - echo "Building Spring Boot image..."
-    - mvn spring-boot:build-image -Dspring-boot.build-image.imageName=registry.gitlab.com/dumdia79/mojito_spb/mojito-app -Dcheckstyle.skip
-    - echo "Pushing image to GitLab registry..."
-    - docker push registry.gitlab.com/dumdia79/mojito_spb/mojito-app
+    - apt-get update -qq
+    - apt-get install -y docker.io
+    - echo " Login to GitLab registry..."
+    - echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token $CI_REGISTRY --password-stdin
+    - echo " Build Docker image for Spring Boot..."
+    - mvn spring-boot:build-image -Dspring-boot.build-image.imageName=registry.gitlab.com/dumdia79/mojito_spb/mojito-app:${CI_COMMIT_SHORT_SHA} -DskipTests
+    - echo " Push Docker image to GitLab Registry..."
+    - docker push registry.gitlab.com/dumdia79/mojito_spb/mojito-app:${CI_COMMIT_SHORT_SHA}
+  only:
+    - main
