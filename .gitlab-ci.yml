@@ -1,0 +1,53 @@
+image: maven:3.9-eclipse-temurin-25
+
+stages:
+  - build
+  - test
+  - docker
+
+variables:
+  MAVEN_CLI_OPTS: "-B -e -U"
+  POSTGRES_DB: mojitodb
+  POSTGRES_USER: user
+  POSTGRES_PASSWORD: mdp
+  SPRING_PROFILES_ACTIVE: ci
+  DOCKER_DRIVER: overlay2
+
+services:
+  - name: postgres:17
+    alias: db
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq docker.io
+  - echo "Waiting for PostgreSQL to start..."
+  - until pg_isready -h db -p 5432; do sleep 2; done
+  - echo "PostgreSQL is ready!"
+
+build-job:
+  stage: build
+  script:
+    - mvn $MAVEN_CLI_OPTS clean compile
+  artifacts:
+    paths:
+      - target/
+    expire_in: 1 week
+
+test-job:
+  stage: test
+  script:
+    - mvn $MAVEN_CLI_OPTS test
+  dependencies:
+    - build-job
+
+docker-build:
+  stage: docker
+  image: docker:27
+  services:
+    - docker:27-dind
+  variables:
+    DOCKER_TLS_CERTDIR: ""
+  script:
+    - docker build -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA" .
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+  only:
+    - main
