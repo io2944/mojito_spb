@@ -102,7 +102,7 @@ code_quality_job:
 # -----------------------------
 package_job:
   stage: package
-  image: maven:3.9-eclipse-temurin-25
+  image: docker:27
   services:
     - name: docker:dind
       alias: docker
