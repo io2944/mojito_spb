@@ -54,15 +54,14 @@ public class DevisController {
 
 	@GetMapping("/createDevis")
 	public String showForm(DevisForm devisForm, Model model) {
+
 		model.addAttribute("devisForm", new DevisForm());
-		//model.addAttribute("isEdit", false);
-		// Récupérer la liste des clients depuis le repository
 		List<ClientDto> clients = clientService.getAllClients();
 		model.addAttribute("clients", clients);
-		// Enum directement
 		model.addAttribute("types", TypeDocument.values());
 		model.addAttribute("statuts", StatutDevis.values());
 		return "Devis/createDevis";
+
 	}
 
 	@PostMapping("/createDevis")
@@ -72,8 +71,7 @@ public class DevisController {
 		if (bindingResult.hasErrors()) {
 			// Affichage du formulaire avec les erreurs
 			bindingResult.getAllErrors().forEach(e -> System.out.println(e)); // <--- affichera toutes les erreurs
-
-			//model.addAttribute("isEdit", false);
+			model.addAttribute("errors", bindingResult.getAllErrors());
 			model.addAttribute("types", TypeDocument.values());
 			model.addAttribute("statuts", StatutDevis.values());
 			System.out.println("*** Erreur : redirection vers /createDevis ***");

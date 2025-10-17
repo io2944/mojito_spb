@@ -5,7 +5,7 @@
     <link type="text/css" rel="stylesheet" th:href="@{/style.css}">
     <link type="text/css" rel="stylesheet" th:href="@{/error.css}">
     <script th:src="@{/js/menu.js}" defer></script>
-    <title th:text="'Erreur ' + (${errorCode} ?: '???')"></title>
+    <title th:text="${errorCode} != null ? 'Erreur ' + ${errorCode} : 'Erreur inattendue'">Erreur</title>
 </head>
 
 <body>
@@ -19,6 +19,14 @@
         <div class="error-message" th:text="${errorMessage} ?: 'Une erreur inattendue s\'est produite'">
             Page non trouvée
         </div>
+
+        <ul th:if="${errors}" class="error-list">
+            <li th:each="err : ${errors}" th:text="${err}"></li>
+        </ul>
+
+        <p th:if="${timestamp}" class="error-timestamp">
+            <small th:text="'Heure : ' + ${timestamp}"></small>
+        </p>
 
         <p class="error-message">Allo Houston ?! On a un problème !</p>
         <div class="form-boutons form-boutons-role error-buttons">

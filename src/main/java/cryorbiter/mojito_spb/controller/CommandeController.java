@@ -10,6 +10,9 @@ import cryorbiter.mojito_spb.service.CommandeService;
 import cryorbiter.mojito_spb.service.DevisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,9 +53,16 @@ public class CommandeController {
     }
 
     @GetMapping("/listeCommande")
-    public String showForm(Model model, HttpSession session) {
-        List<CommandeDto> commandes = commandeService.getAllCommandes();
+    public String showForm(Model model,
+                           @RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "10") int size,
+                           HttpSession session) {
+
+        Pageable pageable = PageRequest.of(page, size);
+        Page<CommandeDto> commandes = commandeService.getAllCommandes(pageable);
         model.addAttribute("commandes", commandes);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", commandes.getTotalPages());
         model.addAttribute("statuts", StatutCommande.values());
         return "Commande/listeCommande";
     }

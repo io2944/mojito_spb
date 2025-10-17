@@ -37,6 +37,21 @@
 						   onclick="return confirm('Confirmer la suppression ?');">Supprimer</a>
 					</div>
 				</div>
+
+				<!-- Pagination simple -->
+				<div class="pagination">
+					<a th:if="${commandes.hasPrevious()}"
+					   th:href="@{/listeCommande(page=${commandes.number - 1}, size=${commandes.size})}">&laquo; Précédent</a>
+
+					<span th:each="i : ${#numbers.sequence(0, commandes.totalPages - 1)}">
+        				<a th:href="@{/listeCommande(page=${i}, size=${commandes.size})}"
+						   th:text="${i + 1}"
+						   th:classappend="${i == commandes.number} ? 'active' : ''"></a>
+    				</span>
+
+					<a th:if="${commandes.hasNext()}"
+					   th:href="@{/listeCommande.html(page=${commandes.number + 1}, size=${commandes.size})}">Suivant &raquo;</a>
+				</div>
 			</section>
 		</div>
 		<div class="form-boutons form-boutons-role error-buttons">

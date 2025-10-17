@@ -2,12 +2,15 @@ package cryorbiter.mojito_spb.service;
 
 import cryorbiter.mojito_spb.dto.ClientDto;
 import cryorbiter.mojito_spb.dto.CommandeDto;
+import cryorbiter.mojito_spb.dto.DevisDto;
 import cryorbiter.mojito_spb.mapper.ClientMapper;
 import cryorbiter.mojito_spb.mapper.CommandeMapper;
 import cryorbiter.mojito_spb.model.Client;
 import cryorbiter.mojito_spb.model.Commande;
 import cryorbiter.mojito_spb.repository.CommandeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -107,6 +110,11 @@ public class CommandeService {
         return commandes.stream()
                 .map(commandeMapper::toDto)
                 .collect(Collectors.toList());
+    }
+
+    public Page<CommandeDto> getAllCommandes(Pageable pageable) {
+        return commandeRepository.findAll(pageable)
+                .map(commandeMapper::toDto);
     }
 
     public List<CommandeDto> findByLibelle(String nom) {

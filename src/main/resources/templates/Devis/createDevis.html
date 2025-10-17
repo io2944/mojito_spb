@@ -30,21 +30,25 @@
 		<!-- Libellé et Date -->
 		<div class="form-champs" style="display:flex; gap:16px;">
 			<input type="text" th:field="*{libelle}" class="champs" placeholder="Libellé du devis*" size="50" maxlength="100" required/>
-			<input type="date" th:field="*{date}" class="champs" placeholder="Date"/>
+			<input type="date" th:field="*{date}" class="champs" placeholder="Date" required/>
+			<p th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="error-message"></p>
 		</div>
 
 		<!-- Poids et TVA -->
 		<div class="form-champs" style="display:flex; gap:16px;">
 			<input type="number" th:field="*{poids}" class="champs" step="0.01" placeholder="Poids (kg)*" required/>
 			<input type="number" th:field="*{tva}" class="champs" step="0.01" placeholder="TVA (%)"/>
+			<p th:if="${#fields.hasErrors('tva')}" th:errors="*{tva}" class="error-message"></p>
 		</div>
 
 		<!-- Prix au kilo et Type -->
 		<div class="form-champs" style="display:flex; gap:16px;">
 			<input type="number" th:field="*{prixKilo}" class="champs" step="0.01" placeholder="Prix au kilo"/>
+			<p th:if="${#fields.hasErrors('prixKilo')}" th:errors="*{prixKilo}" class="error-message"></p>
 			<select th:field="*{type}" class="champs" >
 				<option th:each="t : ${types}" th:value="${t}" th:text="${t}"></option>
 			</select>
+			<p th:if="${#fields.hasErrors('type')}" th:errors="*{type}" class="error-message"></p>
 		</div>
 
 		<!-- Statut et Commentaire -->
@@ -52,6 +56,7 @@
 			<select th:field="*{statut}" class="champs" required>
 				<option th:each="s : ${statuts}" th:value="${s}" th:text="${s}"></option>
 			</select>
+			<p th:if="${#fields.hasErrors('statut')}" th:errors="*{statut}" class="error-message"></p>
 			<textarea th:field="*{commentaire}" class="champs" rows="4" cols="40" maxlength="1000" placeholder="Votre projet en quelques mots"></textarea>
 		</div>
 
