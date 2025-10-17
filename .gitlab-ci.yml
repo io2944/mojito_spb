@@ -57,7 +57,7 @@ test-job:
 # -----------------------------
 #  CODE QUALITY STAGE
 # -----------------------------
-.code_quality_job:
+code_quality_job:
   stage: quality
   image: docker:27
   variables:
@@ -85,7 +85,7 @@ test-job:
 # -----------------------------
 #  SONARCLOUD STAGE
 # -----------------------------
-sonarcloud-check:
+.sonarcloud-check:
   stage: sonarcloud
   image: maven:3.9-eclipse-temurin-25
   variables:
