@@ -31,23 +31,11 @@ build-job:
 test-job:
   stage: test
   image: maven:3.9-eclipse-temurin-25
-  services:
-    - name: postgres:17
-      alias: mojitodb
   variables:
-    POSTGRES_DB: mojitodb
-    POSTGRES_USER: user
-    POSTGRES_PASSWORD: mdp
-    SPRING_DATASOURCE_URL: jdbc:postgresql://mojitodb:5432/mojitodb
-    SPRING_DATASOURCE_USERNAME: user
-    SPRING_DATASOURCE_PASSWORD: mdp
+    SPRING_PROFILES_ACTIVE: test
   before_script:
-    - apt-get update -qq && apt-get install -y -qq postgresql-client
-    - echo "Waiting for PostgreSQL to be ready..."
-    - until pg_isready -h mojitodb -p 5432; do sleep 2; done
-    - echo " PostgreSQL is ready!"
+    - echo "Tests avec H2 et data.sql"
   script:
-    - echo " Lancement des tests Maven..."
     - mvn -B test
   artifacts:
     when: always
