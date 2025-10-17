@@ -32,8 +32,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-src/main/resources/application.properties
-src/main/resources/application.yml
-src/test/resources/application-test.properties
-src/test/resources/application-test.yml
