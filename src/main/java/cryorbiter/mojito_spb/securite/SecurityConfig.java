@@ -56,8 +56,12 @@ public class SecurityConfig {
         return  authenticationProvider;
     }
 
-//    @Bean
-//    public AuthenticationManager getAuthenticationManager() {
-//        return new ProviderManager(getAuthenticationProvider());
-//    }
+    @PostConstruct
+    public void convertDatabaseUrl() {
+        String databaseUrl = System.getenv("Postgres.DATABASE_URL");
+        if (databaseUrl != null && databaseUrl.startsWith("postgresql://")) {
+            String springUrl = "jdbc:" + databaseUrl.replace("postgresql://", "postgresql://").replace("?", "&");
+            System.setProperty("SPRING_DATABASE_URL", springUrl);
+        }
+    }
 }
