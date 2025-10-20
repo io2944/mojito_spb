@@ -61,7 +61,7 @@ public class SecurityConfig {
         String databaseUrl = System.getenv("Postgres.DATABASE_URL");
         if (databaseUrl != null && databaseUrl.startsWith("postgresql://")) {
             String springUrl = "jdbc:" + databaseUrl.replace("postgresql://", "postgresql://").replace("?", "&");
-            System.setProperty("SPRING_DATABASE_URL", springUrl);
+            System.setProperty("SPRING_DATASOURCE_URL", springUrl);
         }
     }
 }
